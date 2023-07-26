@@ -80,7 +80,7 @@
   content: "";
   width: 10px;
   height: 10px;
-  margin: 0px 12.5px 0px 0px;
+  margin: 0px 12.5px 0px 12.5px;
   position: absolute;
   z-index: 11;
   transform: translateY(5px);
