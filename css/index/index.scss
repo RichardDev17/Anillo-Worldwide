@@ -1,6 +1,7 @@
 /* Imports */
 @import "../main.css";
 @import "../scss/pallete/pallete";
+@import "../scss/mixins/mixins";
 
 /* Menu Start */
 .menu {
@@ -21,7 +22,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: black;
+    background-color: $black;
     opacity: 90%;
   }
 }
@@ -78,7 +79,7 @@
         content: '';
         width: 10px;
         height: 10px;
-        margin-left: 12.5px;
+        @include margin(0px, 12.5px, 0px, 0px);
         position: absolute;
         z-index: 11;
         transform: translateY(5px);
@@ -90,23 +91,21 @@
       }
       & a{
         margin-left: 25px;
-        color: white;
+        color: $white;
       }
     }
   }
 }
 
 .welcome {
-  margin-top: 80px;
+  @include margin(80px, 0px, 0px, 0px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   & .title{
-    font-family: 'Playfair Display', serif;
-    font-size: 56px;
-    font-weight: bold;
-    margin-bottom: 80px;
+    @include title($white);
+    @include margin(0px, 0px, 80px, 0px);
     &::after{
       content: '';
       position: absolute;
@@ -115,28 +114,15 @@
       height: 4px;
       background-color: $orange;
       transform: translateX(-333px);
-      margin-top: 70px;
+      @include margin(70px, 0px, 0px, 0px);
     }
   }
   & .paragraph{
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 26px;
-    font-weight: medium;
-    text-align: center;
-    margin-bottom: 80px;
+    @include paragraph(26px, $white, medium);
+    @include margin(0px, 0px, 80px, 0px);
   }
   & .btn{
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 18px;
-    color: white;
-    font-weight: 700;
-    text-align: center;
-    padding: 10px 15px 10px 15px;
-    background-color: $blue;
-    border: none;
-    &:hover{
-      cursor: pointer;
-    }
+    @include btn(18px, $white, $blue, 10px, 15px, 10px, 15px, 800);
   }
 }
 
@@ -146,3 +132,135 @@
 }
 
 /* Menu end */
+
+/* Cards Section Start */
+
+.cards-wrapper {
+  @include margin(80px, 0px, 80px, 0px);
+  text-align: center;
+
+  & .card-starter {
+    @include margin(0px, 0px, 80px, 0px);
+  }
+
+  & .title {
+    @include title($blue);
+    @include margin(0px, 0px, 10px, 0px);
+  }
+
+  & .paragraph {
+    @include paragraph(18px, $black, 600);
+  }
+  & .btn {
+    @include btn(18px, $blue, $orange, 10px, 55px, 10px, 55px, 800);
+    @include margin(50px, 0px, 0px, 0px);
+  }
+
+  /* Card */
+  & .cards-container {
+    width: 100%;
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../../images/world.svg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: $black;
+      opacity: 90%;
+      z-index: 10;
+    }
+    & .cards {
+      display: flex;
+      flex-direction: row;
+      position: absolute;
+      z-index: 11;
+
+      & .card{
+        @include margin(0px, 10px, 0px, 10px);
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 400px;
+        height: 300px;
+        border: 4px solid $white;
+        & .title {
+          @include title($white);
+          @include margin(0px, 0px, 20px, 0px);
+          font-size: 36px;
+
+          & .sp {
+            color: $orange;
+          }
+        }
+        & .container {
+          margin: 0px 50px;
+        }
+        & .paragraph {
+          @include paragraph(25px, $white, 700);
+          text-align: left;
+
+          & .sp {
+            color: $blue;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Cards Section End */
+
+/* Socials Section Start */
+
+.socials-wrapper {
+  text-align: center;
+  & .social-starter {
+    @include margin(0px, 0px, 80px, 0px);
+
+    & .starter{
+      @include margin(0px, 0px, 80px, 0px);
+      & .title {
+        @include title($blue);
+        @include margin(0px, 0px, 20px, 0px);
+      }
+
+      & .paragraph {
+        @include paragraph(18px, $black, 600);
+
+        & .sp {
+          color: $orange;
+        }
+      }
+    }
+
+    & .socials {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      @include margin(0px, 0px, 40px, 0px);
+
+      & .social {
+        @include margin(0px, 20px, 0px, 20px);
+
+        & .paragraph {
+          @include paragraph(26px, $black, 600);
+        }
+      }
+    }
+    & .btn {
+      @include btn(18px, $blue, $orange, 10px, 55px, 10px, 55px, 800);
+    }
+  }
+}
+
+/* Socials Section End */
