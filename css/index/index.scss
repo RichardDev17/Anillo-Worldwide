@@ -187,6 +187,7 @@
         }
         & .paragraph {
           @include paragraph(25px, $white, 700);
+          line-height: 2rem;
           text-align: left;
 
           & .sp {
@@ -245,7 +246,76 @@
   & .social-ender {
     @include parallax('../../images/virtual.svg', $black);
     flex-direction: row;
+
+    & .social-container {
+      display: flex;
+      justify-content: center;
+
+      & .social-info {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        position: absolute;
+        z-index: 11;
+
+        & .info {
+          & .paragraph-title {
+            @include paragraph(56px, $orange, 700);
+          }
+
+          & .paragraph {
+            @include paragraph(26px, $white, 700);
+          }
+        }
+      }
+    }
   }
 }
 
 /* Socials Section End */
+
+/* Footer Start */
+
+.footer-wrapper {
+  @include margin(80px, 0px, 80px, 0px);
+  & .container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    & div {
+      @include margin(40px, 0px, 0px, 0px);
+      display: flex;
+      justify-content: center;
+      & .btn {
+        @include btn(18px, $blue, $orange, 10px, 55px, 10px, 55px, 800);
+      }
+    }
+  }
+  & .footer-container {
+    display: flex;
+    flex-direction: row;
+
+    & .paragraph {
+      @include paragraph(30px, $black, 600);
+      text-align: justify;
+    }
+  }
+}
+
+/* Footer End */
+
+/* Disclaimer Start */
+
+.disclaimer-wrapper {
+  background-color: $blue;
+  padding: 40px 0px;
+
+  & .paragraph {
+    @include paragraph(16px, $white, 700);
+  }
+}
+
+/* Disclaimer End */
