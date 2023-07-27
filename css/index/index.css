@@ -1,5 +1,5 @@
 /* Imports */
-@import "../main.css";
+@import '../main.css';
 /* Colors */
 /* Menu Start */
 .menu {
@@ -190,7 +190,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url(../../images/world.svg);
+  background-image: url("../../images/world.svg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -203,7 +203,7 @@
   width: 100%;
   height: 100%;
   background-color: black;
-  opacity: 90%;
+  opacity: 100%;
   z-index: 10;
 }
 .cards-wrapper .cards-container .cards {
@@ -303,6 +303,29 @@
 }
 .socials-wrapper .social-starter .btn:hover {
   cursor: pointer;
+}
+.socials-wrapper .social-ender {
+  width: 100%;
+  height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("../../images/virtual.svg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  flex-direction: row;
+}
+.socials-wrapper .social-ender::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 100%;
+  z-index: 10;
 }
 
 /* Socials Section End *//*# sourceMappingURL=index.css.map */
