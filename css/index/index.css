@@ -203,7 +203,7 @@
   width: 100%;
   height: 100%;
   background-color: black;
-  opacity: 90%;
+  opacity: 75%;
   z-index: 10;
 }
 .cards-wrapper .cards-container .cards {
@@ -241,6 +241,7 @@
   font-weight: 700;
   text-align: center;
   color: white;
+  line-height: 2rem;
   text-align: left;
 }
 .cards-wrapper .cards-container .cards .card .paragraph .sp {
@@ -324,8 +325,90 @@
   width: 100%;
   height: 100%;
   background-color: black;
-  opacity: 90%;
+  opacity: 75%;
   z-index: 10;
 }
+.socials-wrapper .social-ender .social-container {
+  display: flex;
+  justify-content: center;
+}
+.socials-wrapper .social-ender .social-container .social-info {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  z-index: 11;
+}
+.socials-wrapper .social-ender .social-container .social-info .info .paragraph-title {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 56px;
+  font-weight: 700;
+  text-align: center;
+  color: #ED7C36;
+}
+.socials-wrapper .social-ender .social-container .social-info .info .paragraph {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+  color: white;
+}
 
-/* Socials Section End *//*# sourceMappingURL=index.css.map */
+/* Socials Section End */
+/* Footer Start */
+.footer-wrapper {
+  margin: 80px 0px 80px 0px;
+}
+.footer-wrapper .container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.footer-wrapper .container div {
+  margin: 40px 0px 0px 0px;
+  display: flex;
+  justify-content: center;
+}
+.footer-wrapper .container div .btn {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 18px;
+  color: #264B92;
+  font-weight: 800;
+  text-align: center;
+  padding: 10px 55px 10px 55px;
+  background-color: #ED7C36;
+  border: none;
+}
+.footer-wrapper .container div .btn:hover {
+  cursor: pointer;
+}
+.footer-wrapper .footer-container {
+  display: flex;
+  flex-direction: row;
+}
+.footer-wrapper .footer-container .paragraph {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  text-align: center;
+  color: black;
+  text-align: justify;
+}
+
+/* Footer End */
+/* Disclaimer Start */
+.disclaimer-wrapper {
+  background-color: #264B92;
+  padding: 40px 0px;
+}
+.disclaimer-wrapper .paragraph {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  color: white;
+}
+
+/* Disclaimer End *//*# sourceMappingURL=index.css.map */
