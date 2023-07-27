@@ -1,6 +1,36 @@
 /* Imports */
 @import '../main.css';
 /* Colors */
+.fade-in {
+  opacity: 0;
+  transform: translateY(-100px);
+  transition: all 1s ease;
+}
+.fade-in.appear {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.fade-left {
+  opacity: 0;
+  transform: translateX(100px);
+  transition: all 1s ease;
+}
+.fade-left.appear {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.fade-right {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: all 1s ease;
+}
+.fade-right.appear {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
 /* Menu Start */
 .menu {
   display: block;
@@ -93,6 +123,10 @@
 .list .list-items .item a {
   margin-left: 25px;
   color: white;
+  transition: all 250ms ease-in;
+}
+.list .list-items .item a:hover {
+  color: #ED7C36;
 }
 
 .welcome {
@@ -128,6 +162,10 @@
   margin: 0px 0px 80px 0px;
 }
 .welcome .btn {
+  position: relative;
+  overflow: hidden;
+  transition: 0.6s all ease;
+  z-index: 1;
   font-family: "Nunito Sans", sans-serif;
   font-size: 18px;
   color: white;
@@ -137,8 +175,25 @@
   background-color: #264B92;
   border: none;
 }
+.welcome .btn::before {
+  content: "";
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  transition: 0.6s all ease;
+  width: 100%;
+  height: 0;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
 .welcome .btn:hover {
   cursor: pointer;
+  color: #264B92;
+}
+.welcome .btn:hover::before {
+  height: 440%;
 }
 
 .pg {
@@ -171,6 +226,10 @@
   color: black;
 }
 .cards-wrapper .btn {
+  position: relative;
+  overflow: hidden;
+  transition: 0.6s all ease;
+  z-index: 1;
   font-family: "Nunito Sans", sans-serif;
   font-size: 18px;
   color: #264B92;
@@ -181,8 +240,25 @@
   border: none;
   margin: 50px 0px 0px 0px;
 }
+.cards-wrapper .btn::before {
+  content: "";
+  background: #264B92;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  transition: 0.6s all ease;
+  width: 100%;
+  height: 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
 .cards-wrapper .btn:hover {
   cursor: pointer;
+  color: #ED7C36;
+}
+.cards-wrapper .btn:hover::before {
+  height: 440%;
 }
 .cards-wrapper .cards-container {
   width: 100%;
@@ -293,6 +369,10 @@
   color: black;
 }
 .socials-wrapper .social-starter .btn {
+  position: relative;
+  overflow: hidden;
+  transition: 0.6s all ease;
+  z-index: 1;
   font-family: "Nunito Sans", sans-serif;
   font-size: 18px;
   color: #264B92;
@@ -302,8 +382,25 @@
   background-color: #ED7C36;
   border: none;
 }
+.socials-wrapper .social-starter .btn::before {
+  content: "";
+  background: #264B92;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  transition: 0.6s all ease;
+  width: 100%;
+  height: 0;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
 .socials-wrapper .social-starter .btn:hover {
   cursor: pointer;
+  color: #ED7C36;
+}
+.socials-wrapper .social-starter .btn:hover::before {
+  height: 440%;
 }
 .socials-wrapper .social-ender {
   width: 100%;
@@ -372,6 +469,10 @@
   justify-content: center;
 }
 .footer-wrapper .container div .btn {
+  position: relative;
+  overflow: hidden;
+  transition: 0.6s all ease;
+  z-index: 1;
   font-family: "Nunito Sans", sans-serif;
   font-size: 18px;
   color: #264B92;
@@ -381,8 +482,25 @@
   background-color: #ED7C36;
   border: none;
 }
+.footer-wrapper .container div .btn::before {
+  content: "";
+  background: #264B92;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  transition: 0.6s all ease;
+  width: 100%;
+  height: 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
 .footer-wrapper .container div .btn:hover {
   cursor: pointer;
+  color: #ED7C36;
+}
+.footer-wrapper .container div .btn:hover::before {
+  height: 440%;
 }
 .footer-wrapper .footer-container {
   display: flex;
