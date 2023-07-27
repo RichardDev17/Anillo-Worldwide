@@ -17,7 +17,16 @@
   margin: $up $right $down $left;
 }
 
-@mixin btn($font-size, $color, $bg-color, $pd-up, $pd-right, $pd-down, $pd-left, $font-weight) {
+@mixin btn(
+  $font-size,
+  $color,
+  $bg-color,
+  $pd-up,
+  $pd-right,
+  $pd-down,
+  $pd-left,
+  $font-weight
+) {
   font-family: 'Nunito Sans', sans-serif;
   font-size: $font-size;
   color: $color;
@@ -26,7 +35,31 @@
   padding: $pd-up $pd-right $pd-down $pd-left;
   background-color: $bg-color;
   border: none;
-  &:hover{
+  &:hover {
     cursor: pointer;
+  }
+}
+
+@mixin parallax($url, $color) {
+  width: 100%;
+  height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url($url);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: $color;
+    opacity: 90%;
+    z-index: 10;
   }
 }
