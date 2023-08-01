@@ -1,0 +1,54 @@
+/* Card Section Start */ /* Colors */
+.team-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  margin: 80px 0px 80px 0px;
+}
+.team-wrapper .sp {
+  color: #264B92;
+}
+.team-wrapper .title {
+  font-family: "Playfair Display", serif;
+  font-size: 56px;
+  font-weight: bold;
+  color: black;
+  margin: 0px 0px 80px 0px;
+}
+.team-wrapper .title .sp {
+  color: #ED7C36;
+}
+.team-wrapper .cards-container {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.team-wrapper .cards-container .card {
+  display: flex;
+  margin: 0px 0px 25px 0px;
+}
+.team-wrapper .cards-container .card .info {
+  margin: 0px 0px 0px 10px;
+}
+.team-wrapper .cards-container .card .info .name {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  color: black;
+  margin: 0px 0px 40px 0px;
+  font-family: "Playfair Display", serif;
+}
+.team-wrapper .cards-container .card .info .item {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  color: black;
+  text-align: left;
+}
+
+/* Card Section End *//*# sourceMappingURL=card.css.map */

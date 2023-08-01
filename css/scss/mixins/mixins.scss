@@ -1,3 +1,120 @@
+@mixin menu(
+  $height,
+  $tlogocolor,
+  $stlogocolor,
+  $bgcolor1,
+  $bgcolor2,
+  $acolor,
+  $ahovercolor,
+  $url: false
+) {
+  display: block;
+  position: relative;
+  height: $height;
+  z-index: 9;
+
+  & .menu-flex {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: row;
+    margin-top: 40px;
+    width: 100%;
+    &:hover {
+      cursor: pointer;
+    }
+    & .text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-left: 10px;
+      & .title-logo {
+        font-family: 'Playfair Display', serif;
+        font-weight: bold;
+        font-size: 36px;
+        color: $tlogocolor;
+      }
+      & .subtitle-logo {
+        font-family: 'Playfair Display', serif;
+        margin-top: 10px;
+        font-weight: medium;
+        font-size: 12px;
+        color: $stlogocolor;
+      }
+    }
+  }
+
+  @if $url {
+    & .bg {
+      width: 100%;
+      height: 100%;
+      background-image: url($url);
+      position: absolute;
+      background-size: cover;
+      background-position: 1%;
+      &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: $bgcolor1;
+        opacity: 90%;
+      }
+    }
+  }
+
+  & .list {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+    align-items: center;
+    & .list-items {
+      display: flex;
+      flex-direction: row;
+      & .item {
+        margin-left: 10px;
+        font-family: 'Nunito Sans', sans-serif;
+        font-weight: medium;
+        font-size: 24px;
+        &::after {
+          content: '';
+          width: 10px;
+          height: 10px;
+          @include margin(0px, 12.5px, 0px, 12.5px);
+          position: absolute;
+          z-index: 11;
+          transform: translateY(5px);
+          border-radius: 50%;
+          background-color: $bgcolor2;
+        }
+        &:last-of-type:after {
+          display: none;
+        }
+        & a {
+          margin-left: 25px;
+          color: $acolor;
+          transition: all 250ms ease-in;
+
+          &:hover {
+            color: $ahovercolor;
+          }
+        }
+
+        &.register {
+          transform: translateY(-10px);
+        }
+        & .btn {
+          @include btn(24px, $white, $orange, 5px, 20px, 5px, 20px, 700, 45deg);
+        }
+      }
+    }
+  }
+}
+
 @mixin title($color) {
   font-family: 'Playfair Display', serif;
   font-size: 56px;
@@ -83,5 +200,14 @@
     background-color: $color;
     opacity: 75%;
     z-index: 10;
+  }
+}
+
+@mixin disclaimer() {
+  background-color: $blue;
+  padding: 40px 0px;
+
+  & .paragraph {
+    @include paragraph(16px, $white, 700);
   }
 }

@@ -4,7 +4,7 @@
 .fade-in {
   opacity: 0;
   transform: translateY(-100px);
-  transition: all 1s ease;
+  transition: all 0.6s ease-out;
 }
 .fade-in.appear {
   opacity: 1;
@@ -14,7 +14,7 @@
 .fade-left {
   opacity: 0;
   transform: translateX(100px);
-  transition: all 1s ease;
+  transition: all 0.6s ease-out;
 }
 .fade-left.appear {
   opacity: 1;
@@ -24,7 +24,7 @@
 .fade-right {
   opacity: 0;
   transform: translateX(-100px);
-  transition: all 1s ease;
+  transition: all 0.6s ease-out;
 }
 .fade-right.appear {
   opacity: 1;
@@ -38,15 +38,48 @@
   height: 100vh;
   z-index: 9;
 }
-
-.bg {
+.menu .menu-flex {
+  display: flex;
+  flex-direction: row;
+}
+.menu .logo {
+  display: flex;
+  flex-direction: row;
+  margin-top: 40px;
+  width: 100%;
+}
+.menu .logo:hover {
+  cursor: pointer;
+}
+.menu .logo .text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+}
+.menu .logo .text .title-logo {
+  font-family: "Playfair Display", serif;
+  font-weight: bold;
+  font-size: 36px;
+  color: #264B92;
+}
+.menu .logo .text .subtitle-logo {
+  font-family: "Playfair Display", serif;
+  margin-top: 10px;
+  font-weight: medium;
+  font-size: 12px;
+  color: #ED7C36;
+}
+.menu .bg {
   width: 100%;
   height: 100%;
-  background-image: url(../../images/bg.svg);
+  background-image: url("../../images/bg.svg");
   position: absolute;
   background-size: cover;
+  background-position: 1%;
 }
-.bg::after {
+.menu .bg::after {
   content: "";
   position: absolute;
   width: 100%;
@@ -54,59 +87,23 @@
   background-color: black;
   opacity: 90%;
 }
-
-.menu-flex {
-  display: flex;
-  flex-direction: row;
-}
-
-.logo {
-  display: flex;
-  flex-direction: row;
-  margin-top: 40px;
-  width: 100%;
-}
-.logo:hover {
-  cursor: pointer;
-}
-.logo .text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-left: 10px;
-}
-.logo .text .title-logo {
-  font-family: "Playfair Display", serif;
-  font-weight: bold;
-  font-size: 36px;
-  color: #264B92;
-}
-.logo .text .subtitle-logo {
-  font-family: "Playfair Display", serif;
-  margin-top: 10px;
-  font-weight: medium;
-  font-size: 12px;
-  color: #ED7C36;
-}
-
-.list {
+.menu .list {
   display: flex;
   width: 100%;
   justify-content: end;
   align-items: center;
 }
-.list .list-items {
+.menu .list .list-items {
   display: flex;
   flex-direction: row;
 }
-.list .list-items .item {
+.menu .list .list-items .item {
   margin-left: 10px;
   font-family: "Nunito Sans", sans-serif;
   font-weight: medium;
   font-size: 24px;
 }
-.list .list-items .item::after {
+.menu .list .list-items .item::after {
   content: "";
   width: 10px;
   height: 10px;
@@ -117,16 +114,53 @@
   border-radius: 50%;
   background-color: #ED7C36;
 }
-.list .list-items .item:last-of-type:after {
+.menu .list .list-items .item:last-of-type:after {
   display: none;
 }
-.list .list-items .item a {
+.menu .list .list-items .item a {
   margin-left: 25px;
   color: white;
   transition: all 250ms ease-in;
 }
-.list .list-items .item a:hover {
+.menu .list .list-items .item a:hover {
   color: #ED7C36;
+}
+.menu .list .list-items .item.register {
+  transform: translateY(-10px);
+}
+.menu .list .list-items .item .btn {
+  position: relative;
+  overflow: hidden;
+  transition: 0.6s all ease;
+  z-index: 1;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 24px;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  padding: 5px 20px 5px 20px;
+  background-color: #ED7C36;
+  border: none;
+}
+.menu .list .list-items .item .btn::before {
+  content: "";
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  transition: 0.6s all ease;
+  width: 100%;
+  height: 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.menu .list .list-items .item .btn:hover {
+  cursor: pointer;
+  color: #ED7C36;
+}
+.menu .list .list-items .item .btn:hover::before {
+  height: 440%;
 }
 
 .welcome {
@@ -466,6 +500,7 @@
 .footer-wrapper .container div {
   margin: 40px 0px 0px 0px;
   display: flex;
+  align-items: center;
   justify-content: center;
 }
 .footer-wrapper .container div .btn {
