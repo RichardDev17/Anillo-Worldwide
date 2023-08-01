@@ -1,0 +1,51 @@
+/* Card Section Start */
+@import '../scss/pallete/pallete';
+@import '../scss/mixins/mixins';
+
+.team-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  @include margin(80px, 0px, 80px, 0px);
+
+  & .sp {
+    color: $blue;
+  }
+
+  & .title {
+    @include title($black);
+    @include margin(0px, 0px, 80px, 0px);
+    & .sp {
+      color: $orange;
+    }
+  }
+
+  & .cards-container {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    & .card {
+      display: flex;
+      @include margin(0px, 0px, 25px, 0px);
+
+      & .info {
+        @include margin(0px, 0px, 0px, 10px);
+
+        & .name {
+          @include paragraph(18px, $black, 600);
+          @include margin(0px, 0px, 40px, 0px);
+          font-family: 'Playfair Display', serif;
+        }
+        & .item {
+          @include paragraph(14px, $black, 700);
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+
+/* Card Section End */

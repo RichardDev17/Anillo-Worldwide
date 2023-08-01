@@ -1,0 +1,259 @@
+/* Imports */
+@import '../main.css';
+/* Colors */
+.fade-in {
+  opacity: 0;
+  transform: translateY(-100px);
+  transition: all 0.6s ease-out;
+}
+.fade-in.appear {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.fade-left {
+  opacity: 0;
+  transform: translateX(100px);
+  transition: all 0.6s ease-out;
+}
+.fade-left.appear {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.fade-right {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: all 0.6s ease-out;
+}
+.fade-right.appear {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.menu {
+  display: block;
+  position: relative;
+  height: auto;
+  z-index: 9;
+}
+.menu .menu-flex {
+  display: flex;
+  flex-direction: row;
+}
+.menu .logo {
+  display: flex;
+  flex-direction: row;
+  margin-top: 40px;
+  width: 100%;
+}
+.menu .logo:hover {
+  cursor: pointer;
+}
+.menu .logo .text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+}
+.menu .logo .text .title-logo {
+  font-family: "Playfair Display", serif;
+  font-weight: bold;
+  font-size: 36px;
+  color: #264B92;
+}
+.menu .logo .text .subtitle-logo {
+  font-family: "Playfair Display", serif;
+  margin-top: 10px;
+  font-weight: medium;
+  font-size: 12px;
+  color: #ED7C36;
+}
+.menu .list {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+  align-items: center;
+}
+.menu .list .list-items {
+  display: flex;
+  flex-direction: row;
+}
+.menu .list .list-items .item {
+  margin-left: 10px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: medium;
+  font-size: 24px;
+}
+.menu .list .list-items .item::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  margin: 0px 12.5px 0px 12.5px;
+  position: absolute;
+  z-index: 11;
+  transform: translateY(5px);
+  border-radius: 50%;
+  background-color: #ED7C36;
+}
+.menu .list .list-items .item:last-of-type:after {
+  display: none;
+}
+.menu .list .list-items .item a {
+  margin-left: 25px;
+  color: #264B92;
+  transition: all 250ms ease-in;
+}
+.menu .list .list-items .item a:hover {
+  color: #ED7C36;
+}
+.menu .list .list-items .item.register {
+  transform: translateY(-10px);
+}
+.menu .list .list-items .item .btn {
+  position: relative;
+  overflow: hidden;
+  transition: 0.6s all ease;
+  z-index: 1;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 24px;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  padding: 5px 20px 5px 20px;
+  background-color: #ED7C36;
+  border: none;
+}
+.menu .list .list-items .item .btn::before {
+  content: "";
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  transition: 0.6s all ease;
+  width: 100%;
+  height: 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.menu .list .list-items .item .btn:hover {
+  cursor: pointer;
+  color: #ED7C36;
+}
+.menu .list .list-items .item .btn:hover::before {
+  height: 440%;
+}
+
+.card {
+  position: relative;
+}
+.card:hover .modal {
+  display: block;
+  transform: translate(50%, -90%);
+}
+.card .modal {
+  display: none;
+  position: absolute;
+  width: 500px;
+  height: 250px;
+  background-color: #eaf4f0;
+  border: 4px solid #264B92;
+  transform: translate(50%, -90%);
+  z-index: 11;
+}
+.card .modal .modal-content {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+}
+.card .modal .modal-content .info {
+  padding: 10px;
+  border: 2px solid #264B92;
+  height: 200px;
+  overflow-y: scroll;
+}
+.card .modal .modal-content .info .sp {
+  color: #ED7C36;
+}
+.card .modal .modal-content .info .title {
+  font-family: "Playfair Display", serif;
+  font-size: 56px;
+  font-weight: bold;
+  color: black;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.card .modal .modal-content .info .description {
+  margin-bottom: 10px;
+}
+.card .modal .modal-content .info .description .paragraph {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  color: black;
+  text-align: left;
+}
+.card .modal .modal-content .info .text-description .paragraph {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  color: black;
+  text-align: left;
+}
+.card .modal .modal-content img {
+  width: 75px;
+  height: 75px;
+  background-size: cover;
+  border: 2px solid #264B92;
+}
+.card .btn {
+  position: relative;
+  overflow: hidden;
+  transition: 0.6s all ease;
+  z-index: 1;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 14px;
+  color: black;
+  font-weight: 800;
+  text-align: center;
+  padding: 10px 20px 10px 20px;
+  background-color: #ED7C36;
+  border: none;
+  margin-top: 10px;
+}
+.card .btn::before {
+  content: "";
+  background: black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  transition: 0.6s all ease;
+  width: 100%;
+  height: 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.card .btn:hover {
+  cursor: pointer;
+  color: #ED7C36;
+}
+.card .btn:hover::before {
+  height: 440%;
+}
+
+.disclaimer-wrapper {
+  background-color: #264B92;
+  padding: 40px 0px;
+}
+.disclaimer-wrapper .paragraph {
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  color: white;
+}/*# sourceMappingURL=hire.css.map */

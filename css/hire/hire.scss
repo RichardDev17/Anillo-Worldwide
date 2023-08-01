@@ -1,0 +1,75 @@
+/* Imports */
+@import '../main.css';
+@import '../scss/pallete/pallete';
+@import '../scss/mixins/mixins';
+@import '../scss/animation/animations';
+
+.menu {
+  @include menu(auto, $blue, $orange, $black, $orange, $blue, $orange);
+}
+
+.card {
+  position: relative;
+  &:hover .modal {
+    display: block;
+    transform: translate(50%, -90%);
+  }
+  & .modal {
+    display: none;
+    position: absolute;
+    width: 500px;
+    height: 250px;
+    background-color: #eaf4f0;
+    border: 4px solid $blue;
+    transform: translate(50%, -90%);
+    z-index: 11;
+
+    & .modal-content {
+      display: flex;
+      flex-direction: row;
+      margin: 10px;
+      & .info {
+        padding: 10px;
+        border: 2px solid $blue;
+        height: 200px;
+        overflow-y: scroll;
+        & .sp {
+          color: $orange;
+        }
+        & .title {
+          @include title($black);
+          font-size: 24px;
+          margin-bottom: 20px;
+        }
+        & .description {
+          margin-bottom: 10px;
+          & .paragraph {
+            @include paragraph(16px, $black, 700);
+            text-align: left;
+          }
+        }
+        & .text-description {
+          & .paragraph {
+            @include paragraph(16px, $black, 700);
+            text-align: left;
+          }
+        }
+      }
+
+      & img {
+        width: 75px;
+        height: 75px;
+        background-size: cover;
+        border: 2px solid $blue;
+      }
+    }
+  }
+  & .btn {
+    @include btn(14px, $black, $orange, 10px, 20px, 10px, 20px, 800, 45deg);
+    margin-top: 10px;
+  }
+}
+
+.disclaimer-wrapper {
+  @include disclaimer();
+}
