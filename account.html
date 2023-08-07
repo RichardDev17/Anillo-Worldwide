@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/account.css">
+  <title>Anillo WorldWide</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="create-container item">
+      <div class="form-image">
+        <img src="images/choose.svg" alt="">
+      </div>
+      <div class="form">
+        <form action="#" id="chooseForm">
+          <div class="form-header">
+            <div class="title">
+              <h1>Register</h1>
+            </div>
+            <div class="login-button">
+              <button class="signin">SIGN IN</button>
+            </div>
+          </div>
+
+          <div class="inputs">
+            <div class="title">
+              <h6>What kind of account do you want?</h6>
+            </div>
+
+            <div class="group">
+              <div class="input">
+                <input id="tutor" class="tutor" type="radio" name="account">
+                <label for="tutor">Tutor</label>
+              </div>
+
+              <div class="input">
+                <input id="Student" class="student" type="radio" name="account">
+                <label for="Student">Student</label>
+              </div>
+
+              <div class="input">
+                <input id="contentcreator" class="content" type="radio" name="account">
+                <label for="contentcreator">Content Creator</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="continue-button">
+            <button class="btnone">Continue</button>
+          </div>
+          <a href="index.html" class="return">← return</a>
+      </div>
+      </form>
+    </div>
+    <div class="account-container item deactive">
+      <div class="form-image">
+        <img src="images/account.svg" alt="">
+      </div>
+      <div class="form">
+        <form action="#">
+          <div class="form-header">
+            <div class="title">
+              <h1>Register</h1>
+            </div>
+            <div class="login-button">
+              <button class="signin">SIGN IN</button>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="input-box">
+              <label for="firstname">First Name</label>
+              <input id="firstname" type="text" name="firstname" placeholder="Type out your first name" required>
+            </div>
+
+            <div class="input-box">
+              <label for="lastname">Last Name</label>
+              <input id="lastname" type="text" name="lastname" placeholder="Type out your last name" required>
+            </div>
+            <div class="input-box">
+              <label for="email">E-mail</label>
+              <input id="email" type="email" name="email" placeholder="Write your e-mail" required>
+            </div>
+
+            <div class="input-box">
+              <label for="number">Phone #</label>
+              <input id="number" type="tel" name="number" placeholder="+XX (xx) xxxx-xxxx" required>
+            </div>
+
+            <div class="input-box">
+              <label for="password">Password</label>
+              <input id="password" type="password" name="password" placeholder="Password" required>
+            </div>
+
+
+            <div class="input-box">
+              <label for="confirmPassword">Confirm Your Password</label>
+              <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm your password" required>
+            </div>
+
+          </div>
+
+          <div class="inputs">
+            <div class="title">
+              <h6>Gender</h6>
+            </div>
+
+            <div class="group">
+              <div class="input">
+                <input id="female" type="radio" name="gender">
+                <label for="female">Female</label>
+              </div>
+
+              <div class="input">
+                <input id="male" type="radio" name="gender">
+                <label for="male">Male</label>
+              </div>
+
+              <div class="input">
+                <input id="others" type="radio" name="gender">
+                <label for="others">Others</label>
+              </div>
+
+              <div class="input">
+                <input id="none" type="radio" name="gender">
+                <label for="none">Prefer not to say</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="continue-button">
+            <button class="btntwo">REGISTER</button>
+          </div>
+          <a href="index.html" class="return">← return</a>
+      </div>
+      </form>
+    </div>
+    <div class="tutor-container item deactive">
+      <div class="form-image">
+        <img src="images/tutor.svg" alt="">
+      </div>
+      <div class="form">
+        <form action="#" style="overflow-y: scroll;">
+          <div class="form-header">
+            <div class="title">
+              <h1>Tutor Register</h1>
+            </div>
+            <div class="login-button">
+              <button class="signin">SIGN IN</button>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="input-box">
+              <label for="firstname">Full Name</label>
+              <input id="firstnametwo" type="text" name="firstname" placeholder="Type out your full name" required>
+            </div>
+
+            <div class="input-box">
+              <label for="skills">Skills</label>
+              <input id="skills" type="text" name="skills" placeholder="Example: programming, lecturing, so on" required>
+            </div>
+            <div class="input-box">
+              <label for="email">E-mail</label>
+              <input id="emailtwo" type="email" name="email" placeholder="Write your e-mail" required>
+            </div>
+
+            <div class="input-box">
+              <label for="number">Phone #</label>
+              <input id="numbertwo" type="tel" name="number" placeholder="+XX (xx) xxxx-xxxx" required>
+            </div>
+
+            <div class="input-box">
+              <label for="password">Password</label>
+              <input id="passwordtwo" type="password" name="password" placeholder="Password" required>
+            </div>
+
+
+            <div class="input-box">
+              <label for="confirmPassword">Confirm Your Password</label>
+              <input id="confirmPasswordtwo" type="password" name="confirmPassword" placeholder="Confirm your password" required>
+            </div>
+
+          </div>
+
+          <div class="inputs">
+            <div class="title">
+              <h6>Gender</h6>
+            </div>
+
+            <div class="group">
+              <div class="input">
+                <input id="femaletwo" type="radio" name="gender">
+                <label for="female">Female</label>
+              </div>
+
+              <div class="input">
+                <input id="maletwo" type="radio" name="gender">
+                <label for="male">Male</label>
+              </div>
+
+              <div class="input">
+                <input id="otherstwo" type="radio" name="gender">
+                <label for="others">Others</label>
+              </div>
+
+              <div class="input">
+                <input id="nonetwo" type="radio" name="gender">
+                <label for="none">Prefer not to say</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="inputs">
+            <div class="title">
+              <h6>Availability</h6>
+            </div>
+
+            <div class="group">
+              <div class="input">
+                <input id="part-time" type="radio" name="availability">
+                <label for="part-time">part-time</label>
+              </div>
+
+              <div class="input">
+                <input id="full-time" type="radio" name="availability">
+                <label for="full-time">full-time</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="inputs">
+            <div class="title">
+              <h6>Send us your CV (PDF ONLY)</h6>
+            </div>
+
+            <div class="group">
+              <div class="input">
+                <input type="file" id="myFile" name="filename" accept=".pdf">
+              </div>
+            </div>
+          </div>
+
+          <div class="continue-button">
+            <button class="btnthree">REGISTER</button>
+          </div>
+          <a href="index.html" class="return">← return</a>
+      </div>
+      </form>
+    </div>
+    <div class="social-container item deactive">
+      <div class="form-image">
+        <img src="images/content.svg" alt="">
+      </div>
+      <div class="form">
+        <form action="#" style="overflow-y: scroll;">
+          <div class="form-header">
+            <div class="title">
+              <h1>Content Creator Register</h1>
+            </div>
+            <div class="login-button">
+              <button class="signin">SIGN IN</button>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="input-box">
+              <label for="firstname">Full Name</label>
+              <input id="firstnamethree" type="text" name="firstname" placeholder="Type out your full name" required>
+            </div>
+
+            <div class="input-box">
+              <label for="socialmedia">Social Media</label>
+              <input id="socialmedia" type="text" name="socialmedia" placeholder="Your social media" required>
+            </div>
+            <div class="input-box">
+              <label for="email">E-mail</label>
+              <input id="emailthree" type="email" name="email" placeholder="Write your e-mail" required>
+            </div>
+
+            <div class="input-box">
+              <label for="number">Phone #</label>
+              <input id="numberthree" type="tel" name="number" placeholder="+XX (xx) xxxx-xxxx" required>
+            </div>
+
+            <div class="input-box">
+              <label for="password">Password</label>
+              <input id="passwordthree" type="password" name="password" placeholder="Password" required>
+            </div>
+
+
+            <div class="input-box">
+              <label for="confirmPassword">Confirm Your Password</label>
+              <input id="confirmPasswordthree" type="password" name="confirmPassword" placeholder="Confirm your password" required>
+            </div>
+
+          </div>
+
+          <div class="inputs">
+            <div class="title">
+              <h6>Gender</h6>
+            </div>
+
+            <div class="group">
+              <div class="input">
+                <input id="femalethree" type="radio" name="gender">
+                <label for="female">Female</label>
+              </div>
+
+              <div class="input">
+                <input id="malethree" type="radio" name="gender">
+                <label for="male">Male</label>
+              </div>
+
+              <div class="input">
+                <input id="othersthree" type="radio" name="gender">
+                <label for="others">Others</label>
+              </div>
+
+              <div class="input">
+                <input id="nonethree" type="radio" name="gender">
+                <label for="none">Prefer not to say</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="inputs">
+            <div class="title">
+              <h6>Availability</h6>
+            </div>
+
+            <div class="group">
+              <div class="input">
+                <input id="part-timetwo" type="radio" name="availability">
+                <label for="part-time">part-time</label>
+              </div>
+
+              <div class="input">
+                <input id="full-timetwo" type="radio" name="availability">
+                <label for="full-time">full-time</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="inputs">
+            <div class="title">
+              <h6>Send us a screenshot of your media (JPG ONLY)</h6>
+            </div>
+
+            <div class="group">
+              <div class="input">
+                <input type="file" id="myFiletwo" name="filename" accept=".jpg">
+              </div>
+            </div>
+          </div>
+
+          <div class="continue-button">
+            <button class="btnthree">REGISTER</button>
+          </div>
+          <a href="index.html" class="return">← return</a>
+      </div>
+      </form>
+    </div>
+    <div class="login-container item deactive">
+      <div class="form-image">
+        <img src="images/content.svg" alt="">
+      </div>
+      <div class="form">
+        <form action="#" style="overflow-y: scroll;">
+          <div class="form-header">
+            <div class="title">
+              <h1>Sign In</h1>
+            </div>
+            <div class="login-button">
+              <button class="register">REGISTER</button>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <div class="input-box">
+              <label for="email">E-mail</label>
+              <input id="emailfour" type="email" name="email" placeholder="Write your e-mail" required>
+            </div>
+            <div class="input-box">
+              <label for="password">Password</label>
+              <input id="passwordfour" type="password" name="password" placeholder="Password" required>
+            </div>
+          </div>
+          <div class="continue-button">
+            <button class="btnfour">Sign In</button>
+          </div>
+          <a href="index.html" class="return">← return</a>
+      </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+
+</html>
