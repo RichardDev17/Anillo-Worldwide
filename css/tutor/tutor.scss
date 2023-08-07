@@ -1,0 +1,39 @@
+/* Imports */
+@import '../main.css';
+@import '../scss/pallete/pallete';
+@import '../scss/mixins/mixins';
+@import '../scss/animation/animations';
+
+.menu {
+  @include menu(auto, $blue, $orange, $black, $orange, $blue, $orange);
+}
+
+.profile {
+  @include margin(80px, 0px, 80px, 0px);
+  @include paragraph(16px, $black, 600);
+  text-align: center;
+  & .profile-content {
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+
+    & .info img {
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 4px solid $orange;
+    }
+    & .description {
+      margin-left: 25px;
+      padding-left: 25px;
+      border-left: 4px solid $orange;
+    }
+  }
+  & .btn {
+    margin-top: 20px;
+    @include btn(24px, $black, $orange, 10px, 40px, 10px, 40px, 800, 45deg);
+  }
+}
+
+.disclaimer-wrapper {
+  @include disclaimer();
+}

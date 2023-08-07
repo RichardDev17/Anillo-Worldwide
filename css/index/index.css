@@ -555,6 +555,9 @@
 .disclaimer-wrapper {
   background-color: #264B92;
   padding: 40px 0px;
+  width: 100%;
+  position: relative;
+  bottom: 0;
 }
 .disclaimer-wrapper .paragraph {
   font-family: "Nunito Sans", sans-serif;
