@@ -1,0 +1,84 @@
+@media (max-width: 1000px) {
+  .container {
+    margin: 0px 25px 0px 25px;
+  }
+
+  .list-items .item a {
+    font-size: 16px;
+  }
+
+  .list-items .item button {
+    font-size: 16px;
+  }
+
+  .cards-wrapper .cards-container {
+    height: 100vh;
+  }
+
+  .cards-wrapper .cards-container .cards {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    margin: 0px 15px 0px 15px;
+  }
+
+  .menu .menu-flex {
+    flex-direction: column;
+  }
+  .menu .list .list-items {
+    flex-direction: column;
+  }
+  .menu .list .list-items .item {
+    margin-bottom: 10px;
+  }
+  .menu .list .list-items .item .btn {
+    font-size: 16px;
+  }
+  .welcome .title {
+    font-size: 36px;
+  }
+
+  .welcome .title::after {
+    width: 150px;
+    transform: translateX(-200px);
+  }
+  .socials-wrapper .social-starter .socials {
+    flex-direction: column;
+  }
+
+  .pg {
+    width: 75%;
+  }
+
+  .socials-wrapper .social-ender .social-container .social-info {
+    flex-direction: column;
+  }
+
+  .footer-wrapper .footer-container {
+    flex-direction: column;
+  }
+
+  .footer-wrapper .footer-container img {
+    width: 400px;
+    height: 250px;
+  }
+
+  .team-wrapper .title {
+    font-size: 36px;
+  }
+
+  .about-wrapper .about-content .about-text .title {
+    font-size: 36px;
+  }
+
+  .about-wrapper .about-content .about-text .paragraphs {
+    width: 90%;
+  }
+
+  .about-wrapper .about-content .about-images {
+    display: none;
+  }
+}
