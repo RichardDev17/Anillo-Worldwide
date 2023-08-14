@@ -1,3 +1,19 @@
+<?php
+session_start();
+    
+  include("php/connection.php");
+  include("php/functions.php");
+  include("php/inc/query.inc.php");
+
+  $user_data = check_login($con);
+  if(isset($user_data))
+  {
+    $username = $user_data['user_name'];
+  } else if(!isset($user_data)) {
+    http_response_code(404);
+    die;
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,15 +41,24 @@
         <div class="list">
           <ul class="list-items">
             <li class="item">
-              <a href="about.html">About Us</a>
+              <a href="about.php">About Us</a>
             </li>
             <li class="item">
-              <a href="hire.html">Hire Tutor</a>
+              <a href="hire.php">Hire Tutor</a>
             </li>
-            <li class="item register">
-              <a href="account.html">SIGN IN</a>
-              <button class="btn" onclick="window.location = '/account.html'">REGISTER</button>
-            </li>
+            <?php 
+              if(isset($user_data)){
+                echo 
+                '<li class="item">
+                <a href="profile.php#userid='. encrypt($user_data['user_id']) .'">'. $username .'</a>
+                </li>';
+              } else if(!isset($user_data)){
+                echo '<li class="item register">
+                <a href="account.php">SIGN IN</a>
+                <button class="btn" onclick="window.location = "/account.php"">REGISTER</button>
+                </li>';
+              }
+            ?>
           </ul>
         </div>
       </div>
@@ -61,52 +86,42 @@
   <section class="team-wrapper">
     <h1 class="title">MEET THE <span class="sp">TEAM</span></h1>
     <div class="cards-section" style="width: 100%;">
-      <div class="container">
+      <div class="container" style="margin: 0px 50px">
         <div class="cards-container">
-          <div class="card">
-            <img src="images/SHAUN.svg" alt="">
-            <div class="info">
-              <h1 class="name">SHAUN MIGUEL – <span class="sp">FOUNDER & LEAD ADMINISTRATOR</span></h1>
-              <ul>
-                <li class="item"><span class="sp">Hometown:</span> Bristol, Rhode Island</li>
-                <li class="item"><span class="sp">Languages:</span> English, German, Spanish, Arabic</li>
-                <li class="item"><span class="sp">Experience:</span> TESOL Certification, BA in Foreign Language</li>
-              </ul>
-            </div>
-          </div>
-          <div class="card">
-            <img src="images/SHAUN.svg" alt="">
-            <div class="info">
-              <h1 class="name">SHAUN MIGUEL – <span class="sp">FOUNDER & LEAD ADMINISTRATOR</span></h1>
-              <ul>
-                <li class="item"><span class="sp">Hometown:</span> Bristol, Rhode Island</li>
-                <li class="item"><span class="sp">Languages:</span> English, German, Spanish, Arabic</li>
-                <li class="item"><span class="sp">Experience:</span> TESOL Certification, BA in Foreign Language</li>
-              </ul>
-            </div>
-          </div>
-          <div class="card">
-            <img src="images/SHAUN.svg" alt="">
-            <div class="info">
-              <h1 class="name">SHAUN MIGUEL – <span class="sp">FOUNDER & LEAD ADMINISTRATOR</span></h1>
-              <ul>
-                <li class="item"><span class="sp">Hometown:</span> Bristol, Rhode Island</li>
-                <li class="item"><span class="sp">Languages:</span> English, German, Spanish, Arabic</li>
-                <li class="item"><span class="sp">Experience:</span> TESOL Certification, BA in Foreign Language</li>
-              </ul>
-            </div>
-          </div>
-          <div class="card">
-            <img src="images/SHAUN.svg" alt="">
-            <div class="info">
-              <h1 class="name">SHAUN MIGUEL – <span class="sp">FOUNDER & LEAD ADMINISTRATOR</span></h1>
-              <ul>
-                <li class="item"><span class="sp">Hometown:</span> Bristol, Rhode Island</li>
-                <li class="item"><span class="sp">Languages:</span> English, German, Spanish, Arabic</li>
-                <li class="item"><span class="sp">Experience:</span> TESOL Certification, BA in Foreign Language</li>
-              </ul>
-            </div>
-          </div>
+        <?php 
+            $team_query = new QueryProcessor("select * from team", $con);
+            $result = $team_query->getResult();
+            $counter = 0;
+            while($row = mysqli_fetch_array($result)) {
+              $counter++;
+              $name_team= $row['name'];
+              $checker = new QueryProcessor("select * from team where name='$name_team'", $con);
+              $result2 = $checker->getResult();
+              $member = mysqli_fetch_array($result2);
+              $url = $member['url'];
+              $name = $member['name'];
+              $role = $member['role'];
+              $hometown = $member['hometown'];
+              $languages = $member['languages'];
+              $experience = $member['experience'];
+  
+              if(mysqli_num_rows($result2) > 0) {
+                echo '<div class="card">
+                  <img src="'. $url .'" alt="">
+                  <div class="info">
+                    <h1 class="name">'. $name .' – <span class="sp">'. $role .'</span></h1>
+                    <ul>
+                      <li class="item"><span class="sp">Hometown:</span> '. $hometown .'</li>
+                      <li class="item"><span class="sp">Languages:</span> '. $languages .'</li>
+                      <li class="item"><span class="sp">Experience:</span> '. $experience .'</li>
+                    </ul>
+                  </div>
+                </div>';
+              } else if(mysqli_num_rows($result2) < 0){
+                echo 'no team found';
+              }
+            }
+          ?>
         </div>
       </div>
     </div>

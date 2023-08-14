@@ -1,3 +1,16 @@
+<?php
+session_start();
+    
+  include("php/connection.php");
+  include("php/functions.php");
+  include("php/inc/query.inc.php");
+
+  $user_data = check_login($con);
+  if(isset($user_data))
+  {
+    $username = $user_data['user_name'];
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,15 +38,24 @@
         <div class="list">
           <ul class="list-items">
             <li class="item">
-              <a href="about.html">About Us</a>
+              <a href="about.php">About Us</a>
             </li>
             <li class="item">
-              <a href="hire.html">Hire Tutor</a>
+              <a href="hire.php">Hire Tutor</a>
             </li>
-            <li class="item register">
-              <a href="account.html">SIGN IN</a>
-              <button class="btn" onclick="window.location = '/account.html'">REGISTER</button>
-            </li>
+            <?php 
+              if(isset($user_data)){
+                echo 
+                '<li class="item">
+                <a href="profile.php#userid='. encrypt($user_data['user_id']) .'">'. $username .'</a>
+                </li>';
+              } else if(!isset($user_data)){
+                echo '<li class="item register">
+                <a href="account.php">SIGN IN</a>
+                <button class="btn" onclick="window.location = "/account.php"">REGISTER</button>
+                </li>';
+              }
+            ?>
           </ul>
         </div>
       </div>
@@ -44,7 +66,7 @@
         <div class="pg">
           <p class="paragraph">The creation of ANILLO Worldwide was inspired by a passion to help others by spreading knowledge through language and culture. </p>
         </div>
-        <button class="btn" onclick="window.location = '/hire.html'">VIEW OUR TUTORS</button>
+        <button class="btn" onclick="window.location = '/hire.php'">VIEW OUR TUTORS</button>
       </section>
     </div>
   </nav>
@@ -53,7 +75,7 @@
       <div class="container">
         <h1 class="title">ANILLO Worldwide</h1>
         <p class="paragraph">Learn more about our missions, visions and goals</p>
-        <button class="btn" onclick="window.location = '/about.html'">LEARN MORE</button>
+        <button class="btn" onclick="window.location = '/about.php'">LEARN MORE</button>
       </div>
     </div>
 

@@ -1,3 +1,20 @@
+<?php
+session_start();
+    
+  include("php/connection.php");
+  include("php/functions.php");
+  include("php/inc/query.inc.php");
+
+  $user_data = check_login($con);
+  if(isset($user_data))
+  {
+    $username = $user_data['user_name'];
+  } else if(!isset($user_data)) {
+    http_response_code(404);
+    die;
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,15 +41,24 @@
         <div class="list">
           <ul class="list-items">
             <li class="item">
-              <a href="about.html">About Us</a>
+              <a href="about.php">About Us</a>
             </li>
             <li class="item">
-              <a href="hire.html">Hire Tutor</a>
+              <a href="hire.php">Hire Tutor</a>
             </li>
-            <li class="item register">
-              <a href="account.html">SIGN IN</a>
-              <button class="btn" onclick="window.location = '/account.html'">REGISTER</button>
-            </li>
+            <?php 
+              if(isset($user_data)){
+                echo 
+                '<li class="item">
+                <a href="profile.php#userid='. encrypt($user_data['user_id']) .'">'. $username .'</a>
+                </li>';
+              } else if(!isset($user_data)){
+                echo '<li class="item register">
+                <a href="account.php">SIGN IN</a>
+                <button class="btn" onclick="window.location = "/account.php"">REGISTER</button>
+                </li>';
+              }
+            ?>
           </ul>
         </div>
       </div>
@@ -43,11 +69,13 @@
       <div class="profile-content">
         <div class="info">
           <div class="profile-photo">
-            <img src="images/SHAUN.svg" alt="">
+            <img <?php if($user_data['gender'] === 'Male'){ echo 'src="images/male.svg"';} else if($user_data['gender'] === 'Female'){ echo 'src="images/female.svg"';}else { echo 'src="images/unkown.png"';} ?> alt="" style="width: 150px; height: 150px;">
           </div>
           <div class="skills">
-            <p class="paragraph">Name: Full Name</p>
+            <p class="paragraph">Name: <?php echo $username; ?></p>
             <p class="paragraph">Subscription: Free</p>
+            <p class="paragraph"><a href="php/logout.php">Log Out</a></p>
+            <p class="paragraph"><a href="php/deleteacc.php">Delete Account</a></p>
           </div>
         </div>
         <div class="description">
