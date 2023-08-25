@@ -109,7 +109,6 @@
         & .paragraph {
           @include paragraph(25px, $white, 700);
           line-height: 2rem;
-          text-align: left;
 
           & .sp {
             color: $blue;

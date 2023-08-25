@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 session_start();
   include("php/connection.php");
   include("php/functions.php");
@@ -49,13 +50,40 @@ session_start();
                       $hashed_pwd = password_hash($password, PASSWORD_DEFAULT);
                       $phone = $_POST['number'];
                       $gender = $_POST['gender'];
-  
-                      // save to database
-                      $query = "insert into users (user_id,user_name,email,password,user_psw_length,phone,gender,type) values('$user_id','$user_name','$email','$hashed_pwd','$psw_length', '$phone', '$gender','$type')";
-                      mysqli_query($con, $query);
-                      $_SESSION['user_id'] = $user_id;
-                      header("Location: index.php");
-                      die;
+
+                      $fromname ="ANILLOWorldwide";
+                      $fromemail = 'apply@anilloworldwide.org';
+                      $separator = md5(time());
+                      $eol = "\r\n";
+                      // main header (multipart mandatory)
+                      $headers = "From: ".$fromname." <".$fromemail.">" . $eol;
+                      $headers .= "MIME-Version: 1.0" . $eol;
+                      $headers .= "Content-Type: multipart/mixed; boundary=\"" . $separator . "\"" . $eol;
+                      $headers .= "Content-Transfer-Encoding: 7bit" . $eol;
+                      $headers .= "This is a MIME encoded message." . $eol;
+
+                      $mailto = $email;
+                      $message = "Hello ". $user_name .", \r\n Welcome to ANILLO Worldwide. We are happy to have you here! Your student account was successfully created. \r\n \r\n TEAM ANILLO WORLDWIDE.";
+                      $body2 = "--" . $separator . $eol;
+                      $body2 .= "Content-Type: text/plain; charset=\"iso-8859-1\"" . $eol;
+                      $body2 .= "Content-Transfer-Encoding: 8bit" . $eol;
+                      $body2 .= $message . $eol;
+                      $subject = "ACCOUNT CREATED - ANILLO Worldwide";
+
+                      if(mail($mailto, $subject, $body2, $headers)) {
+                        // save to database
+                        $query = "insert into users (user_id,user_name,email,password,user_psw_length,phone,gender,type,availability) values('$user_id','$user_name','$email','$hashed_pwd','$psw_length', '$phone', '$gender','$type', '$availability')";
+                        mysqli_query($con, $query);
+
+                        $_SESSION['user_id'] = $user_id;
+                        header("Location: /test");
+                        die;
+                      } else {
+                        $refresh = true;
+                        $acc2 = true;
+                        $create = false;
+                        $msg_error = "Could not send email, possible reasons: unexisting email, system FAIL";
+                      }
                     } else if(!preg_match($pattern_password, $password)) {
                       $refresh = true;
                       $acc = true;
@@ -86,7 +114,7 @@ session_start();
         {
           $msg_error = "Please, type valid information!";
         }
-      } 
+      }
       else if(isset($_POST['firstnametwo'])) {
         $user_name = $_POST['firstnametwo'];
         $password = $_POST['passwordtwo'];
@@ -120,13 +148,69 @@ session_start();
                       $phone = $_POST['numbertwo'];
                       $gender = $_POST['gendertwo'];
                       $availability = $_POST['availability'];
-  
-                      // save to database
-                      $query = "insert into users (user_id,user_name,email,password,user_psw_length,phone,gender,type,availability) values('$user_id','$user_name','$email','$hashed_pwd','$psw_length', '$phone', '$gender','$type', '$availability')";
-                      mysqli_query($con, $query);
-                      $_SESSION['user_id'] = $user_id;
-                      header("Location: index.php");
-                      die;
+
+                      $filenameee =  $_FILES['filename']['name'];
+                      $fileName = $_FILES['filename']['tmp_name'];
+                      $skills = $_POST['skills'];
+    
+                      $message ="Name = ". $user_name . "\r\n  Email: " . $email . "\r\n Message: Applying for position as Tutor \r\n SKILLS:" . $skills; 
+    
+                      $subject ="CV RECEIVER";
+                      $fromname ="ANILLOWorldwide";
+                      $fromemail = 'apply@anilloworldwide.org';
+                      $mailto = 'computer.richard0923@gmail.com';
+                      $content = file_get_contents($fileName);
+                      $content = chunk_split(base64_encode($content));
+                      $separator = md5(time());
+                      $eol = "\r\n";
+                      // main header (multipart mandatory)
+                      $headers = "From: ".$fromname." <".$fromemail.">" . $eol;
+                      $headers .= "MIME-Version: 1.0" . $eol;
+                      $headers .= "Content-Type: multipart/mixed; boundary=\"" . $separator . "\"" . $eol;
+                      $headers .= "Content-Transfer-Encoding: 7bit" . $eol;
+                      $headers .= "This is a MIME encoded message." . $eol;
+                      // message
+                      $body = "--" . $separator . $eol;
+                      $body .= "Content-Type: text/plain; charset=\"iso-8859-1\"" . $eol;
+                      $body .= "Content-Transfer-Encoding: 8bit" . $eol;
+                      $body .= $message . $eol;
+                      // attachment
+                      $body .= "--" . $separator . $eol;
+                      $body .= "Content-Type: application/octet-stream; name=\"" . $filenameee . "\"" . $eol;
+                      $body .= "Content-Transfer-Encoding: base64" . $eol;
+                      $body .= "Content-Disposition: attachment" . $eol;
+                      $body .= $content . $eol;
+                      $body .= "--" . $separator . "--";
+                      //SEND Mail
+                      if (mail($mailto, $subject, $body, $headers)) {
+                        $mailto = $email;
+                        $message = "Hello ". $user_name .", \r\n Welcome to ANILLO Worldwide. We are happy to have you here! Your tutor account was successfully created, but it is still inactive. Await our team to review your credentials and we'll get back to you shortly. \r\n \r\n TEAM ANILLO WORLDWIDE.";
+                        $body2 = "--" . $separator . $eol;
+                        $body2 .= "Content-Type: text/plain; charset=\"iso-8859-1\"" . $eol;
+                        $body2 .= "Content-Transfer-Encoding: 8bit" . $eol;
+                        $body2 .= $message . $eol;
+                        $subject = "ACCOUNT APPROVAL - ANILLO Worldwide";
+
+                        if(mail($mailto, $subject, $body2, $headers)) {
+                          // save to database
+                          $query = "insert into users (user_id,user_name,email,password,user_psw_length,phone,gender,type,availability) values('$user_id','$user_name','$email','$hashed_pwd','$psw_length', '$phone', '$gender','$type', '$availability')";
+                          mysqli_query($con, $query);
+
+                          $_SESSION['user_id'] = $user_id;
+                          header("Location: /test");
+                          die;
+                        } else {
+                          $refresh = true;
+                          $acc2 = true;
+                          $create = false;
+                          $msg_error = "Could not send email, possible reasons: unexisting email, system FAIL";
+                        }
+                      } else {
+                        $refresh = true;
+                        $acc2 = true;
+                        $create = false;
+                        $msg_error = "Could not send email, server ERROR, TUTOR ACCOUNT CREATED STATUS: INACTIVE";
+                      }
                     } else if(!preg_match($pattern_password, $password)) {
                       $refresh = true;
                       $acc2 = true;
@@ -191,13 +275,69 @@ session_start();
                       $phone = $_POST['numberthree'];
                       $gender = $_POST['genderthree'];
                       $availability = $_POST['availabilitytwo'];
-  
-                      // save to database
-                      $query = "insert into users (user_id,user_name,email,password,user_psw_length,phone,gender,type,availability) values('$user_id','$user_name','$email','$hashed_pwd','$psw_length', '$phone', '$gender','$type', '$availability')";
-                      mysqli_query($con, $query);
-                      $_SESSION['user_id'] = $user_id;
-                      header("Location: index.php");
-                      die;
+
+                      $filenameee =  $_FILES['filename']['name'];
+                      $fileName = $_FILES['filename']['tmp_name'];
+                      $socialmedia = $_POST['socialmedia'];
+    
+                      $message ="Name = ". $user_name . "\r\n  Email: " . $email . "\r\n Message: Applying for position as Tutor \r\n Social Media:" . $socialmedia; 
+    
+                      $subject ="CV RECEIVER";
+                      $fromname ="ANILLOWorldwide";
+                      $fromemail = 'apply@anilloworldwide.org';
+                      $mailto = 'computer.richard0923@gmail.com';
+                      $content = file_get_contents($fileName);
+                      $content = chunk_split(base64_encode($content));
+                      $separator = md5(time());
+                      $eol = "\r\n";
+                      // main header (multipart mandatory)
+                      $headers = "From: ".$fromname." <".$fromemail.">" . $eol;
+                      $headers .= "MIME-Version: 1.0" . $eol;
+                      $headers .= "Content-Type: multipart/mixed; boundary=\"" . $separator . "\"" . $eol;
+                      $headers .= "Content-Transfer-Encoding: 7bit" . $eol;
+                      $headers .= "This is a MIME encoded message." . $eol;
+                      // message
+                      $body = "--" . $separator . $eol;
+                      $body .= "Content-Type: text/plain; charset=\"iso-8859-1\"" . $eol;
+                      $body .= "Content-Transfer-Encoding: 8bit" . $eol;
+                      $body .= $message . $eol;
+                      // attachment
+                      $body .= "--" . $separator . $eol;
+                      $body .= "Content-Type: application/octet-stream; name=\"" . $filenameee . "\"" . $eol;
+                      $body .= "Content-Transfer-Encoding: base64" . $eol;
+                      $body .= "Content-Disposition: attachment" . $eol;
+                      $body .= $content . $eol;
+                      $body .= "--" . $separator . "--";
+                      //SEND Mail
+                      if (mail($mailto, $subject, $body, $headers)) {
+                        $mailto = $email;
+                        $message = "Hello ". $user_name .", \r\n Welcome to ANILLO Worldwide. We are happy to have you here! Your content creator account was successfully created, but it is still inactive. Wait for our team to review your credentials and we'll get back to you shortly. \r\n \r\n TEAM ANILLO WORLDWIDE.";
+                        $body2 = "--" . $separator . $eol;
+                        $body2 .= "Content-Type: text/plain; charset=\"iso-8859-1\"" . $eol;
+                        $body2 .= "Content-Transfer-Encoding: 8bit" . $eol;
+                        $body2 .= $message . $eol;
+                        $subject = "ACCOUNT APPROVAL - ANILLO Worldwide";
+
+                        if(mail($mailto, $subject, $body2, $headers)) {
+                          // save to database
+                          $query = "insert into users (user_id,user_name,email,password,user_psw_length,phone,gender,type,availability) values('$user_id','$user_name','$email','$hashed_pwd','$psw_length', '$phone', '$gender','$type', '$availability')";
+                          mysqli_query($con, $query);
+
+                          $_SESSION['user_id'] = $user_id;
+                          header("Location: /test");
+                          die;
+                        } else {
+                          $refresh = true;
+                          $acc2 = true;
+                          $create = false;
+                          $msg_error = "Could not send email, possible reasons: unexisting email, system FAIL";
+                        }
+                      } else {
+                        $refresh = true;
+                        $acc2 = true;
+                        $create = false;
+                        $msg_error = "Could not send email, server ERROR, TUTOR ACCOUNT CREATED STATUS: INACTIVE";
+                      }
                     } else if(!preg_match($pattern_password, $password)) {
                       $refresh = true;
                       $acc3 = true;
@@ -249,7 +389,7 @@ session_start();
                 $verifier = password_verify($password, $user_data['password']);
                 if($verifier) {
                   $_SESSION['user_id'] = $user_data['user_id'];
-                  header("Location: index.php");
+                  header("Location: /test");
                   die;
                 }else {
                   $acc4 == true;
@@ -285,7 +425,7 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/account.css">
-  <title>Anillo WorldWide</title>
+  <title>ANILLO Worldwide</title>
 </head>
 
 <body>
@@ -331,7 +471,7 @@ session_start();
           <div class="continue-button">
             <button class="btnone">Continue</button>
           </div>
-          <a href="index.php" class="return">← return</a>
+          <a href="/test" class="return">← return</a>
       </div>
       </form>
     </div>
@@ -415,7 +555,7 @@ session_start();
           <div class="continue-button">
             <button class="btntwo" type>REGISTER</button>
           </div>
-          <a href="index.php" class="return">← return</a>
+          <a href="/test" class="return">← return</a>
       </div>
       </form>
     </div>
@@ -424,7 +564,7 @@ session_start();
         <img src="images/tutor.svg" alt="">
       </div>
       <div class="form">
-        <form action="#" style="overflow-y: scroll;" method="post">
+        <form action="#" style="overflow-y: scroll;" method="post" enctype="multipart/form-data">
           <div class="form-header">
             <div class="title">
               <h1>Tutor Register</h1>
@@ -532,7 +672,7 @@ session_start();
           <div class="continue-button">
             <button class="btnthree">REGISTER</button>
           </div>
-          <a href="index.php" class="return">← return</a>
+          <a href="/test" class="return">← return</a>
       </div>
       </form>
     </div>
@@ -541,7 +681,7 @@ session_start();
         <img src="images/content.svg" alt="">
       </div>
       <div class="form">
-        <form action="#" style="overflow-y: scroll;" method="post">
+        <form action="#" style="overflow-y: scroll;" method="post" enctype="multipart/form-data">
           <div class="form-header">
             <div class="title">
               <h1>Content Creator Register</h1>
@@ -645,7 +785,7 @@ session_start();
           <div class="continue-button">
             <button class="btnthree">REGISTER</button>
           </div>
-          <a href="index.php" class="return">← return</a>
+          <a href="/test" class="return">← return</a>
       </div>
       </form>
     </div>
@@ -680,7 +820,7 @@ session_start();
           <div class="continue-button">
             <button class="btnfour">Sign In</button>
           </div>
-          <a href="index.php" class="return">← return</a>
+          <a href="/test" class="return">← return</a>
       </div>
       </form>
     </div>

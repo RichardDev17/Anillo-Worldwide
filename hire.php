@@ -5,13 +5,12 @@ session_start();
   include("php/functions.php");
   include("php/inc/query.inc.php");
 
+  error_reporting(0);
+
   $user_data = check_login($con);
   if(isset($user_data))
   {
     $username = $user_data['user_name'];
-  } else if(!isset($user_data)) {
-    http_response_code(404);
-    die;
   }
 ?>
 <!DOCTYPE html>
@@ -20,10 +19,10 @@ session_start();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/hire/hire.css">
-  <link rel="stylesheet" href="css/card/card.css">
-  <link rel="stylesheet" href="css/responsive.css">
   <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/hire/hire.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/card/card.css">
   <title>ANILLO Worldwide</title>
 </head>
 
@@ -31,7 +30,7 @@ session_start();
   <nav class="menu">
     <div class="container">
       <div class="menu-flex fade-in">
-        <div class="logo" onclick="window.location = '/'">
+        <div class="logo" onclick="window.location.href = '/test'">
           <img src="images/img.svg" alt="">
           <div class="text">
             <h1 class="title-logo">ANILLO Worldwide</h1>
@@ -53,9 +52,10 @@ session_start();
                 <a href="profile.php#userid='. encrypt($user_data['user_id']) .'">'. $username .'</a>
                 </li>';
               } else if(!isset($user_data)){
+                $account = "'account.php'";
                 echo '<li class="item register">
                 <a href="account.php">SIGN IN</a>
-                <button class="btn" onclick="window.location = "/account.php"">REGISTER</button>
+                <button class="btn" onclick="window.location.href = '. $account .'">REGISTER</button>
                 </li>';
               }
             ?>
@@ -126,7 +126,7 @@ session_start();
     </div>
   </section>
   <div class="disclaimer-wrapper">
-    <p class="paragraph">Copyright © 2023 ANILLO WorldWide ®</p>
+    <p class="paragraph">Copyright © 2023 ANILLO Worldwide ®</p>
   </div>
   <script src="js/observers.js"></script>
 </body>

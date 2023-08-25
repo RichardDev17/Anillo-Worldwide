@@ -5,6 +5,8 @@ session_start();
   include("php/functions.php");
   include("php/inc/query.inc.php");
 
+  error_reporting(0);
+
   $user_data = check_login($con);
   if(isset($user_data))
   {
@@ -17,10 +19,10 @@ session_start();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/index/index.css">
   <link rel="stylesheet" href="css/responsive.css">
-  <link rel="stylesheet" href="css/reset.css">
-  <title>Anillo Worldwide</title>
+  <title>ANILLO Worldwide</title>
 </head>
 
 <body>
@@ -28,7 +30,7 @@ session_start();
     <div class="bg"></div>
     <div class="container">
       <div class="menu-flex fade-in">
-        <div class="logo" onclick="window.location = '/'">
+        <div class="logo" onclick="window.location.href = '/test'">
           <img src="images/img.svg" alt="">
           <div class="text">
             <h1 class="title-logo">ANILLO Worldwide</h1>
@@ -50,9 +52,10 @@ session_start();
                 <a href="profile.php#userid='. encrypt($user_data['user_id']) .'">'. $username .'</a>
                 </li>';
               } else if(!isset($user_data)){
+                $account = "'account.php'";
                 echo '<li class="item register">
                 <a href="account.php">SIGN IN</a>
-                <button class="btn" onclick="window.location = "/account.php"">REGISTER</button>
+                <button class="btn" onclick="window.location.href = '. $account .'">REGISTER</button>
                 </li>';
               }
             ?>
@@ -64,9 +67,9 @@ session_start();
       <section class="welcome fade-in">
         <h1 class="title">OUR AMBITION</h1>
         <div class="pg">
-          <p class="paragraph">The creation of ANILLO Worldwide was inspired by a passion to help others by spreading knowledge through language and culture. </p>
+          <p class="paragraph">We are passionate about helping others by spreading knowledge of language and culture.</p>
         </div>
-        <button class="btn" onclick="window.location = '/hire.php'">VIEW OUR TUTORS</button>
+        <button class="btn" onclick="window.location.href = '/hire.php'">VIEW OUR TUTORS</button>
       </section>
     </div>
   </nav>
@@ -74,8 +77,8 @@ session_start();
     <div class="card-starter fade-in">
       <div class="container">
         <h1 class="title">ANILLO Worldwide</h1>
-        <p class="paragraph">Learn more about our missions, visions and goals</p>
-        <button class="btn" onclick="window.location = '/about.php'">LEARN MORE</button>
+        <p class="paragraph">Learn more about our mission, vision and goals</p>
+        <button class="btn" onclick="window.location.href = '/about.php'">LEARN MORE</button>
       </div>
     </div>
 
@@ -127,7 +130,7 @@ session_start();
             <p class="paragraph">Discussion Forum <br>(coming soon)</p>
           </div>
         </div>
-        <button class="btn fade-in" onclick="window.location = 'linktr.ee/anilloworldwide'">LEARN MORE</button>
+        <button class="btn fade-in" onclick="window.location.href = 'linktr.ee/anilloworldwide'">LEARN MORE</button>
       </div>
     </div>
     <div class="social-ender">
@@ -152,16 +155,16 @@ session_start();
   <footer class="footer-wrapper">
     <div class="container">
       <div class="footer-container">
-        <img src="images/footer-image.svg" class="fade-left">
-        <p class="paragraph fade-right">At ANILLO Worldwide, once fully operational, we aim to devote our efforts towards becoming a certified B Corp benefit corporation. Our goal on this front is to breathe life into languages and cultures around the world that are fading away. As well as providing an incredible opportunity for teachers and other professionals to make a living using our intuitive and interactive platforms. Join us for the ride!</p>
+        <img src="images/footer-image.jpg" class="fade-left">
+        <p class="paragraph fade-right">ANILLO Worldwide is working to become fully operational with several mainstream languages, then our next goal is to preserve and teach less common and endangered languages. We aim to breathe new life into languages and cultures that are less commonly spoken and others that are fading away. We believe that all languages and cultures offer unique knowledge and understanding. Join our community and embark on this exciting journey with us!</p>
       </div>
       <div>
-        <button class="btn fade-in">WHAT'S A B CORP?</button>
+        <button class="btn fade-in" onclick="window.location.href = '/about.php'">Learn More</button>
       </div>
     </div>
   </footer>
   <div class="disclaimer-wrapper">
-    <p class="paragraph">Copyright © 2023 ANILLO WorldWide ®</p>
+    <p class="paragraph">Copyright © 2023 ANILLO Worldwide ®</p>
   </div>
 
   <script src="js/observers.js"></script>
