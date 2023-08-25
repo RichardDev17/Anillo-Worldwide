@@ -73,7 +73,7 @@
   }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 800px) {
   .container {
     margin: 0px 15px 0px 15px !important;
   }
@@ -199,7 +199,7 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .container {
     margin: 0px 15px 0px 15px !important;
   }
@@ -325,6 +325,7 @@
   .footer-wrapper .footer-container .paragraph {
     margin-top: 20px !important;
     font-size: 20px !important;
+    width: 80% !important;
   }
 
   .team-wrapper .title {
