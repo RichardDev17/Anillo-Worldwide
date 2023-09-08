@@ -10,6 +10,7 @@ session_start();
     $pattern_email = "/^\w{2,20}(?:[.-]\w+)?@\w+\.\w+(?:\.?\w+)*/";
     $pattern_name = "/^[\wÀ-ü!-\/]{1,30}/";
     $pattern_password = "/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/";
+    $pattern_phone = "/\(?\+[0-9]{1,3}\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})?/";
     $create = true;
     $acc = false;
     $acc2 = false;
@@ -45,44 +46,51 @@ session_start();
                     $msg_error = "The password has to be the same in both fields!";
                   } else if ($password === $_POST['cpassword']) {
                     if(preg_match($pattern_password, $password)){
-                      $user_id = random_num(20);
-                      $psw_length = strlen($password);
-                      $hashed_pwd = password_hash($password, PASSWORD_DEFAULT);
-                      $phone = $_POST['number'];
-                      $gender = $_POST['gender'];
+                      if(preg_match($pattern_phone, $_POST['number'])) {
+                        $user_id = random_num(20);
+                        $psw_length = strlen($password);
+                        $hashed_pwd = password_hash($password, PASSWORD_DEFAULT);
+                        $phone = $_POST['number'];
+                        $gender = $_POST['gender'];
 
-                      $fromname ="ANILLOWorldwide";
-                      $fromemail = 'apply@anilloworldwide.org';
-                      $separator = md5(time());
-                      $eol = "\r\n";
-                      // main header (multipart mandatory)
-                      $headers = "From: ".$fromname." <".$fromemail.">" . $eol;
-                      $headers .= "MIME-Version: 1.0" . $eol;
-                      $headers .= "Content-Type: multipart/mixed; boundary=\"" . $separator . "\"" . $eol;
-                      $headers .= "Content-Transfer-Encoding: 7bit" . $eol;
-                      $headers .= "This is a MIME encoded message." . $eol;
+                        $fromname ="ANILLOWorldwide";
+                        $fromemail = 'apply@anilloworldwide.org';
+                        $separator = md5(time());
+                        $eol = "\r\n";
+                        // main header (multipart mandatory)
+                        $headers = "From: ".$fromname." <".$fromemail.">" . $eol;
+                        $headers .= "MIME-Version: 1.0" . $eol;
+                        $headers .= "Content-Type: multipart/mixed; boundary=\"" . $separator . "\"" . $eol;
+                        $headers .= "Content-Transfer-Encoding: 7bit" . $eol;
+                        $headers .= "This is a MIME encoded message." . $eol;
 
-                      $mailto = $email;
-                      $message = "Hello ". $user_name .", \r\n Welcome to ANILLO Worldwide. We are happy to have you here! Your student account was successfully created. \r\n \r\n TEAM ANILLO WORLDWIDE.";
-                      $body2 = "--" . $separator . $eol;
-                      $body2 .= "Content-Type: text/plain; charset=\"iso-8859-1\"" . $eol;
-                      $body2 .= "Content-Transfer-Encoding: 8bit" . $eol;
-                      $body2 .= $message . $eol;
-                      $subject = "ACCOUNT CREATED - ANILLO Worldwide";
+                        $mailto = $email;
+                        $message = "Hello ". $user_name .", \r\n Welcome to ANILLO Worldwide. We are happy to have you here! Your student account was successfully created. \r\n \r\n TEAM ANILLO WORLDWIDE.";
+                        $body2 = "--" . $separator . $eol;
+                        $body2 .= "Content-Type: text/plain; charset=\"iso-8859-1\"" . $eol;
+                        $body2 .= "Content-Transfer-Encoding: 8bit" . $eol;
+                        $body2 .= $message . $eol;
+                        $subject = "ACCOUNT CREATED - ANILLO Worldwide";
 
-                      if(mail($mailto, $subject, $body2, $headers)) {
-                        // save to database
-                        $query = "insert into users (user_id,user_name,email,password,user_psw_length,phone,gender,type,availability) values('$user_id','$user_name','$email','$hashed_pwd','$psw_length', '$phone', '$gender','$type', '$availability')";
-                        mysqli_query($con, $query);
+                        if(mail($mailto, $subject, $body2, $headers)) {
+                          // save to database
+                          $query = "insert into users (user_id,user_name,email,password,user_psw_length,phone,gender,type,availability) values('$user_id','$user_name','$email','$hashed_pwd','$psw_length', '$phone', '$gender','$type', '$availability')";
+                          mysqli_query($con, $query);
 
-                        $_SESSION['user_id'] = $user_id;
-                        header("Location: /test");
-                        die;
+                          $_SESSION['user_id'] = $user_id;
+                          header("Location: /");
+                          die;
+                        } else {
+                          $refresh = true;
+                          $acc2 = true;
+                          $create = false;
+                          $msg_error = "Could not send email, possible reasons: unexisting email, system FAIL";
+                        }
                       } else {
                         $refresh = true;
-                        $acc2 = true;
+                        $acc = true;
                         $create = false;
-                        $msg_error = "Could not send email, possible reasons: unexisting email, system FAIL";
+                        $msg_error = "This is an invalid phone number format, please input another one.";
                       }
                     } else if(!preg_match($pattern_password, $password)) {
                       $refresh = true;
@@ -142,74 +150,85 @@ session_start();
                     $msg_error = "The password has to be the same in both fields!";
                   } else if ($password === $_POST['cpasswordtwo']) {
                     if(preg_match($pattern_password, $password)){
-                      $user_id = random_num(20);
-                      $psw_length = strlen($password);
-                      $hashed_pwd = password_hash($password, PASSWORD_DEFAULT);
-                      $phone = $_POST['numbertwo'];
-                      $gender = $_POST['gendertwo'];
-                      $availability = $_POST['availability'];
+                      if(preg_match($pattern_phone, $_POST['numbertwo'])) {
+                        $user_id = random_num(20);
+                        $psw_length = strlen($password);
+                        $hashed_pwd = password_hash($password, PASSWORD_DEFAULT);
+                        $phone = $_POST['numbertwo'];
+                        $gender = $_POST['gendertwo'];
+                        $availability = $_POST['availability'];
 
-                      $filenameee =  $_FILES['filename']['name'];
-                      $fileName = $_FILES['filename']['tmp_name'];
-                      $skills = $_POST['skills'];
-    
-                      $message ="Name = ". $user_name . "\r\n  Email: " . $email . "\r\n Message: Applying for position as Tutor \r\n SKILLS:" . $skills; 
-    
-                      $subject ="CV RECEIVER";
-                      $fromname ="ANILLOWorldwide";
-                      $fromemail = 'apply@anilloworldwide.org';
-                      $mailto = 'computer.richard0923@gmail.com';
-                      $content = file_get_contents($fileName);
-                      $content = chunk_split(base64_encode($content));
-                      $separator = md5(time());
-                      $eol = "\r\n";
-                      // main header (multipart mandatory)
-                      $headers = "From: ".$fromname." <".$fromemail.">" . $eol;
-                      $headers .= "MIME-Version: 1.0" . $eol;
-                      $headers .= "Content-Type: multipart/mixed; boundary=\"" . $separator . "\"" . $eol;
-                      $headers .= "Content-Transfer-Encoding: 7bit" . $eol;
-                      $headers .= "This is a MIME encoded message." . $eol;
-                      // message
-                      $body = "--" . $separator . $eol;
-                      $body .= "Content-Type: text/plain; charset=\"iso-8859-1\"" . $eol;
-                      $body .= "Content-Transfer-Encoding: 8bit" . $eol;
-                      $body .= $message . $eol;
-                      // attachment
-                      $body .= "--" . $separator . $eol;
-                      $body .= "Content-Type: application/octet-stream; name=\"" . $filenameee . "\"" . $eol;
-                      $body .= "Content-Transfer-Encoding: base64" . $eol;
-                      $body .= "Content-Disposition: attachment" . $eol;
-                      $body .= $content . $eol;
-                      $body .= "--" . $separator . "--";
-                      //SEND Mail
-                      if (mail($mailto, $subject, $body, $headers)) {
-                        $mailto = $email;
-                        $message = "Hello ". $user_name .", \r\n Welcome to ANILLO Worldwide. We are happy to have you here! Your tutor account was successfully created, but it is still inactive. Await our team to review your credentials and we'll get back to you shortly. \r\n \r\n TEAM ANILLO WORLDWIDE.";
-                        $body2 = "--" . $separator . $eol;
-                        $body2 .= "Content-Type: text/plain; charset=\"iso-8859-1\"" . $eol;
-                        $body2 .= "Content-Transfer-Encoding: 8bit" . $eol;
-                        $body2 .= $message . $eol;
-                        $subject = "ACCOUNT APPROVAL - ANILLO Worldwide";
+                        $filenameee =  $_FILES['filename']['name'];
+                        $fileName = $_FILES['filename']['tmp_name'];
+                        $skills = $_POST['skills'];
+      
+                        $message ="Name = ". $user_name . "\r\n  Email: " . $email . "\r\n Message: Applying for position as Tutor \r\n SKILLS:" . $skills; 
+      
+                        $subject ="CV RECEIVER";
+                        $fromname ="ANILLOWorldwide";
+                        $fromemail = 'apply@anilloworldwide.org';
+                        $mailto = 'computer.richard0923@gmail.com';
+                        $content = file_get_contents($fileName);
+                        $content = chunk_split(base64_encode($content));
+                        $separator = md5(time());
+                        $eol = "\r\n";
+                        // main header (multipart mandatory)
+                        $headers = "From: ".$fromname." <".$fromemail.">" . $eol;
+                        $headers .= "MIME-Version: 1.0" . $eol;
+                        $headers .= "Content-Type: multipart/mixed; boundary=\"" . $separator . "\"" . $eol;
+                        $headers .= "Content-Transfer-Encoding: 7bit" . $eol;
+                        $headers .= "This is a MIME encoded message." . $eol;
+                        // message
+                        $body = "--" . $separator . $eol;
+                        $body .= "Content-Type: text/plain; charset=\"iso-8859-1\"" . $eol;
+                        $body .= "Content-Transfer-Encoding: 8bit" . $eol;
+                        $body .= $message . $eol;
+                        // attachment
+                        $body .= "--" . $separator . $eol;
+                        $body .= "Content-Type: application/octet-stream; name=\"" . $filenameee . "\"" . $eol;
+                        $body .= "Content-Transfer-Encoding: base64" . $eol;
+                        $body .= "Content-Disposition: attachment" . $eol;
+                        $body .= $content . $eol;
+                        $body .= "--" . $separator . "--";
+                        //SEND Mail
+                        if (mail($mailto, $subject, $body, $headers)) {
+                          $mailto = $email;
+                          $message = "<h1>Hello ". $user_name .",</h1> \r\n <p>Welcome to ANILLO Worldwide. We are happy to have you here! Your tutor account was successfully created, but it is still inactive. Await our team to review your credentials and we'll get back to you shortly.</p> \r\n <p>In the meanwhile, fill out this form with your information:</p> \r\n \r\n <h1>TEAM ANILLO WORLDWIDE.</h1>";
+                          $body2 = "--" . $separator . $eol;
+                          $body2 .= "Content-Type: text/html; charset=\"utf-8\"" . $eol;
+                          $body2 .= "Content-Transfer-Encoding: 8bit" . $eol;
+                          $body2 .= $message . $eol;
+                          $subject = "ACCOUNT APPROVAL - ANILLO Worldwide";
 
-                        if(mail($mailto, $subject, $body2, $headers)) {
-                          // save to database
-                          $query = "insert into users (user_id,user_name,email,password,user_psw_length,phone,gender,type,availability) values('$user_id','$user_name','$email','$hashed_pwd','$psw_length', '$phone', '$gender','$type', '$availability')";
-                          mysqli_query($con, $query);
+                          if(mail($mailto, $subject, $body2, $headers)) {
+                            $tid = random_num(20);
+                            // save to database
+                            $query = "insert into users (user_id,user_name,email,password,user_psw_length,phone,gender,type,availability,tid) values('$user_id','$user_name','$email','$hashed_pwd','$psw_length', '$phone', '$gender','$type', '$availability','$tid')";
+                            mysqli_query($con, $query);
 
-                          $_SESSION['user_id'] = $user_id;
-                          header("Location: /test");
-                          die;
+                            $query2 = "insert into tutors (name,id,status) values('$user_name','$tid','inactive')";
+                            mysqli_query($con, $query2);
+
+                            $_SESSION['user_id'] = $user_id;
+                            header("Location: /");
+                            die;
+                          } else {
+                            $refresh = true;
+                            $acc2 = true;
+                            $create = false;
+                            $msg_error = "Could not send email, possible reasons: unexisting email, system FAIL. ACCOUNT NOT CREATED";
+                          }
                         } else {
                           $refresh = true;
                           $acc2 = true;
                           $create = false;
-                          $msg_error = "Could not send email, possible reasons: unexisting email, system FAIL";
+                          $msg_error = "Could not send email, server ERROR, TUTOR ACCOUNT CREATED STATUS: INACTIVE. ACCOUNT NOT CREATED";
                         }
                       } else {
                         $refresh = true;
-                        $acc2 = true;
+                        $acc = true;
                         $create = false;
-                        $msg_error = "Could not send email, server ERROR, TUTOR ACCOUNT CREATED STATUS: INACTIVE";
+                        $msg_error = "This is an invalid phone number format, please input another one.";
                       }
                     } else if(!preg_match($pattern_password, $password)) {
                       $refresh = true;
@@ -269,6 +288,12 @@ session_start();
                     $msg_error = "The password has to be the same in both fields!";
                   } else if ($password === $_POST['cpasswordthree']) {
                     if(preg_match($pattern_password, $password)){
+                      if(!preg_match($pattern_phone, $_POST['numberthree'])) {
+                        $refresh = true;
+                        $acc = true;
+                        $create = false;
+                        $msg_error = "This is an invalid phone number format, please input another one.";
+                      }
                       $user_id = random_num(20);
                       $psw_length = strlen($password);
                       $hashed_pwd = password_hash($password, PASSWORD_DEFAULT);
@@ -324,7 +349,7 @@ session_start();
                           mysqli_query($con, $query);
 
                           $_SESSION['user_id'] = $user_id;
-                          header("Location: /test");
+                          header("Location: /");
                           die;
                         } else {
                           $refresh = true;
@@ -389,7 +414,7 @@ session_start();
                 $verifier = password_verify($password, $user_data['password']);
                 if($verifier) {
                   $_SESSION['user_id'] = $user_data['user_id'];
-                  header("Location: /test");
+                  header("Location: /");
                   die;
                 }else {
                   $acc4 == true;
@@ -471,7 +496,7 @@ session_start();
           <div class="continue-button">
             <button class="btnone">Continue</button>
           </div>
-          <a href="/test" class="return">← return</a>
+          <a href="/" class="return">← return</a>
       </div>
       </form>
     </div>
@@ -555,7 +580,7 @@ session_start();
           <div class="continue-button">
             <button class="btntwo" type>REGISTER</button>
           </div>
-          <a href="/test" class="return">← return</a>
+          <a href="/" class="return">← return</a>
       </div>
       </form>
     </div>
@@ -672,7 +697,7 @@ session_start();
           <div class="continue-button">
             <button class="btnthree">REGISTER</button>
           </div>
-          <a href="/test" class="return">← return</a>
+          <a href="/" class="return">← return</a>
       </div>
       </form>
     </div>
@@ -785,7 +810,7 @@ session_start();
           <div class="continue-button">
             <button class="btnthree">REGISTER</button>
           </div>
-          <a href="/test" class="return">← return</a>
+          <a href="/" class="return">← return</a>
       </div>
       </form>
     </div>
@@ -820,7 +845,7 @@ session_start();
           <div class="continue-button">
             <button class="btnfour">Sign In</button>
           </div>
-          <a href="/test" class="return">← return</a>
+          <a href="/" class="return">← return</a>
       </div>
       </form>
     </div>

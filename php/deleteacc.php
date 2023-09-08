@@ -32,10 +32,10 @@ session_start();
       $query = "delete from users where user_id='". $user_data['user_id'] ."'";
       $result = $con->query($query);
       if(!$result) {
-        header("Location: ../test");
+        header("Location: ../");
         die;
       } else {
-        header("Location: ../test");
+        header("Location: ../");
         die;
       }
     } else {

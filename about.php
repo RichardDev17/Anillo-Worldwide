@@ -30,7 +30,7 @@ session_start();
   <nav class="menu">
     <div class="container">
       <div class="menu-flex fade-in">
-        <div class="logo" onclick="window.location.href = '/test'">
+        <div class="logo" onclick="window.location.href = '/'">
           <img src="images/img.svg" alt="">
           <div class="text">
             <h1 class="title-logo">ANILLO Worldwide</h1>
@@ -43,7 +43,7 @@ session_start();
               <a href="about.php">About Us</a>
             </li>
             <li class="item">
-              <a href="hire.php">Hire Tutor</a>
+              <a href="hire.php">Tutors</a>
             </li>
             <?php 
               if(isset($user_data)){

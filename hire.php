@@ -30,7 +30,7 @@ session_start();
   <nav class="menu">
     <div class="container">
       <div class="menu-flex fade-in">
-        <div class="logo" onclick="window.location.href = '/test'">
+        <div class="logo" onclick="window.location.href = '/'">
           <img src="images/img.svg" alt="">
           <div class="text">
             <h1 class="title-logo">ANILLO Worldwide</h1>
@@ -43,7 +43,7 @@ session_start();
               <a href="about.php">About Us</a>
             </li>
             <li class="item">
-              <a href="hire.php">Hire Tutor</a>
+              <a href="hire.php">Tutors</a>
             </li>
             <?php 
               if(isset($user_data)){
@@ -65,7 +65,7 @@ session_start();
     </div>
   </nav>
   <section class="team-wrapper">
-    <h1 class="title">MEET THE <span class="sp">TEAM</span></h1>
+    <h1 class="title">HIRE A <span class="sp">TUTOR</span></h1>
     <div class="cards-section" style="width: 100%;">
       <div class="container">
         <div class="cards-container">
@@ -76,7 +76,7 @@ session_start();
             while($row = mysqli_fetch_array($result)) {
               $counter++;
               $name_tutors= $row['name'];
-              $checker = new QueryProcessor("select * from tutors where name='$name_tutors'", $con);
+              $checker = new QueryProcessor("select * from tutors where name='$name_tutors' && status='active'", $con);
               $result2 = $checker->getResult();
               $member = mysqli_fetch_array($result2);
               $url = $member['url'];

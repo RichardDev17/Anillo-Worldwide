@@ -31,7 +31,7 @@ session_start();
   <nav class="menu">
     <div class="container">
       <div class="menu-flex fade-in">
-        <div class="logo" onclick="window.location.href.href = '/test'">
+        <div class="logo" onclick="window.location.href.href = '/'">
           <img src="images/img.svg" alt="">
           <div class="text">
             <h1 class="title-logo">ANILLO Worldwide</h1>
@@ -44,7 +44,7 @@ session_start();
               <a href="about.php">About Us</a>
             </li>
             <li class="item">
-              <a href="hire.php">Hire Tutor</a>
+              <a href="hire.php">Tutors</a>
             </li>
             <?php 
               if(isset($user_data)){
@@ -77,6 +77,7 @@ session_start();
 
           $infoone = mysqli_fetch_array($result);
           $infotwo = mysqli_fetch_array($result2);
+          $phone = trim(trim(trim(infotwo['phone']), "+"), "()");
 
           $url = $infoone['url'];
           $name = $infotwo['user_name'];
@@ -89,22 +90,23 @@ session_start();
           $availability = $infotwo['availability'];
 
           echo '<div class="info">
-          <div class="profile-photo">
-            <img src="'. $url .'" alt="">
+            <div class="profile-photo">
+              <img src="'. $url .'" alt="">
+            </div>
+            <div class="skills">
+              <p class="paragraph">Name: '. $name .'</p>
+              <p class="paragraph">Experience: '. $experience .'</p>
+              <p class="paragraph">Availability: '. $availability .'</p>
+              <p class="paragraph">Age: '. $age .'</p>
+            </div>
           </div>
-          <div class="skills">
-            <p class="paragraph">Name: '. $name .'</p>
-            <p class="paragraph">Experience: '. $experience .'</p>
-            <p class="paragraph">Availability: '. $availability .'</p>
-            <p class="paragraph">Age: '. $age .'</p>
-          </div>
-        </div>
-        <div class="description">
-          <p class="paragraph">'. $description  .'</p>
-        </div>'
+          <div class="description">
+            <p class="paragraph">'. $description  .'</p>
+          </div>'
         ?>
       </div>
-      <button class="btn">HIRE</button>
+      <button class="btn"><a href="https://wa.me/<?php if($phone !== null && $phone) {echo $phone;} ?>?text=I%20would%20like%2to%20book%20a%20class%20with%20you!">HIRE</a></button>
+      <span style="text-align: center; font-size: 16px; color: red;">Contact tutors directly via WhatsApp, Instagram or email to discuss pricing and scheduling</span>
     </div>
   </div>
   <div class="disclaimer-wrapper">

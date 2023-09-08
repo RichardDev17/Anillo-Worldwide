@@ -15,10 +15,6 @@
     height: 100vh !important;
   }
 
-  .cards-wrapper .cards-container .cards {
-    flex-direction: column !important;
-  }
-
   .cards-wrapper .cards-container .cards .card {
     width: 350px !important;
   }
@@ -53,10 +49,6 @@
 
   .cards-wrapper .cards-container .cards .card {
     margin: 10px 0px !important;
-  }
-
-  .cards-wrapper .cards-container .cards {
-    flex-direction: column !important;
   }
 
   .socials-wrapper
