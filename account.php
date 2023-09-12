@@ -90,7 +90,7 @@ session_start();
                         $refresh = true;
                         $acc = true;
                         $create = false;
-                        $msg_error = "This is an invalid phone number format, please input another one.";
+                        $msg_error = "This is an invalid phone number format, please input following one of these formats: (+XX/XXX) XX XXXXX-XXXX, (+XX/XXX)-XX-XXXXX-XXXX or (+XX/XXX)XXXXXXXXX";
                       }
                     } else if(!preg_match($pattern_password, $password)) {
                       $refresh = true;
@@ -152,6 +152,7 @@ session_start();
                     if(preg_match($pattern_password, $password)){
                       if(preg_match($pattern_phone, $_POST['numbertwo'])) {
                         $user_id = random_num(20);
+                        $tid = random_num(20);
                         $psw_length = strlen($password);
                         $hashed_pwd = password_hash($password, PASSWORD_DEFAULT);
                         $phone = $_POST['numbertwo'];
@@ -193,7 +194,7 @@ session_start();
                         //SEND Mail
                         if (mail($mailto, $subject, $body, $headers)) {
                           $mailto = $email;
-                          $message = "<h1>Hello ". $user_name .",</h1> \r\n <p>Welcome to ANILLO Worldwide. We are happy to have you here! Your tutor account was successfully created, but it is still inactive. Await our team to review your credentials and we'll get back to you shortly.</p> \r\n <p>In the meanwhile, fill out this form with your information:</p> \r\n \r\n <h1>TEAM ANILLO WORLDWIDE.</h1>";
+                          $message = "<html><body><h1>Hello ". $user_name .",</h1> \r\n <p>Welcome to ANILLO Worldwide. We are happy to have you here! Your tutor account was successfully created, but it is still inactive. Await our team to review your credentials and we'll get back to you shortly.</p> \r\n <p>In the meanwhile, fill out this form with your information:</p> \r\n \r\n <h1>TEAM ANILLO WORLDWIDE.</h1></body></html>";
                           $body2 = "--" . $separator . $eol;
                           $body2 .= "Content-Type: text/html; charset=\"utf-8\"" . $eol;
                           $body2 .= "Content-Transfer-Encoding: 8bit" . $eol;
@@ -201,7 +202,6 @@ session_start();
                           $subject = "ACCOUNT APPROVAL - ANILLO Worldwide";
 
                           if(mail($mailto, $subject, $body2, $headers)) {
-                            $tid = random_num(20);
                             // save to database
                             $query = "insert into users (user_id,user_name,email,password,user_psw_length,phone,gender,type,availability,tid) values('$user_id','$user_name','$email','$hashed_pwd','$psw_length', '$phone', '$gender','$type', '$availability','$tid')";
                             mysqli_query($con, $query);
@@ -226,9 +226,9 @@ session_start();
                         }
                       } else {
                         $refresh = true;
-                        $acc = true;
+                        $acc2 = true;
                         $create = false;
-                        $msg_error = "This is an invalid phone number format, please input another one.";
+                        $msg_error = "This is an invalid phone number format, please input following one of these formats: (+XX/XXX) XX XXXXX-XXXX, (+XX/XXX)-XX-XXXXX-XXXX or (+XX/XXX)XXXXXXXXX";
                       }
                     } else if(!preg_match($pattern_password, $password)) {
                       $refresh = true;
@@ -290,9 +290,9 @@ session_start();
                     if(preg_match($pattern_password, $password)){
                       if(!preg_match($pattern_phone, $_POST['numberthree'])) {
                         $refresh = true;
-                        $acc = true;
+                        $acc3 = true;
                         $create = false;
-                        $msg_error = "This is an invalid phone number format, please input another one.";
+                        $msg_error = "This is an invalid phone number format, please input following one of these formats: (+XX/XXX) XX XXXXX-XXXX, (+XX/XXX)-XX-XXXXX-XXXX or (+XX/XXX)XXXXXXXXX";
                       }
                       $user_id = random_num(20);
                       $psw_length = strlen($password);
@@ -532,7 +532,7 @@ session_start();
 
             <div class="input-box">
               <label for="number">Phone #</label>
-              <input id="number" type="tel" name="number" placeholder="+XX (xx) xxxx-xxxx" <?php if(isset($refresh) && $refresh) { echo 'value="'. $_POST['number'] .'"';} ?> required>
+              <input id="number" type="tel" name="number" placeholder="(+XX/XXX) XX xxxx-xxxx" <?php if(isset($refresh) && $refresh) { echo 'value="'. $_POST['number'] .'"';} ?> required>
             </div>
 
             <div class="input-box">
@@ -616,7 +616,7 @@ session_start();
 
             <div class="input-box">
               <label for="number">Phone #</label>
-              <input id="numbertwo" type="tel" name="numbertwo" placeholder="+XX (xx) xxxx-xxxx" <?php if(isset($refresh) && $refresh) { echo 'value="'. $_POST['numbertwo'] .'"';} ?> required>
+              <input id="numbertwo" type="tel" name="numbertwo" placeholder="(+XX/XXX) XX xxxx-xxxx" <?php if(isset($refresh) && $refresh) { echo 'value="'. $_POST['numbertwo'] .'"';} ?> required>
             </div>
 
             <div class="input-box">
@@ -689,7 +689,7 @@ session_start();
 
             <div class="group">
               <div class="input">
-                <input type="file" id="myFile" name="filename" accept=".pdf">
+                <input type="file" id="myFile" name="filename" accept=".pdf" required style="color: black;">
               </div>
             </div>
           </div>
@@ -733,7 +733,7 @@ session_start();
 
             <div class="input-box">
               <label for="number">Phone #</label>
-              <input id="numberthree" type="tel" name="numberthree" <?php if(isset($refresh) && $refresh) { echo 'value="'. $_POST['emailthree'] .'"';} ?> placeholder="+XX (xx) xxxx-xxxx" required>
+              <input id="numberthree" type="tel" name="numberthree" <?php if(isset($refresh) && $refresh) { echo 'value="'. $_POST['emailthree'] .'"';} ?> placeholder="(+XX/XXX) XX xxxx-xxxx" required>
             </div>
 
             <div class="input-box">
@@ -802,7 +802,7 @@ session_start();
 
             <div class="group">
               <div class="input">
-                <input type="file" id="myFiletwo" name="filename" accept=".jpg">
+                <input type="file" id="myFiletwo" name="filename" accept=".jpg" required style="color: black;">
               </div>
             </div>
           </div>

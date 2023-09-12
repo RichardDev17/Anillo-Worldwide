@@ -77,7 +77,7 @@ session_start();
 
           $infoone = mysqli_fetch_array($result);
           $infotwo = mysqli_fetch_array($result2);
-          $phone = trim(trim(trim(infotwo['phone']), "+"), "()");
+          $phone = $infotwo['phone'];
 
           $url = $infoone['url'];
           $name = $infotwo['user_name'];
@@ -105,7 +105,7 @@ session_start();
           </div>'
         ?>
       </div>
-      <button class="btn"><a href="https://wa.me/<?php if($phone !== null && $phone) {echo $phone;} ?>?text=I%20would%20like%2to%20book%20a%20class%20with%20you!">HIRE</a></button>
+      <button class="btn"><a href="https://wa.me/<?php if($phone) {echo str_replace(array("(","+",")"," "),"",$phone);} ?>?text=I%20would%20like%20to%20book%20a%20class%20with%20you!" style="color: inherit;">HIRE</a></button>
       <span style="text-align: center; font-size: 16px; color: red;">Contact tutors directly via WhatsApp, Instagram or email to discuss pricing and scheduling</span>
     </div>
   </div>

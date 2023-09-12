@@ -29,12 +29,12 @@ session_start();
 
     if(mail($mailto, $subject, $body2, $headers)) {
       $username = $user_data['user_name'];
+      $usertutor = $user_data['tid'];
       $query = "delete from users where user_id='". $user_data['user_id'] ."'";
       $result = $con->query($query);
-      if(!$result) {
-        header("Location: ../");
-        die;
-      } else {
+      if($result) {
+        $query2 = "delete from tutors where id='$usertutor'";
+        $result2 = $con->query($query2);
         header("Location: ../");
         die;
       }
