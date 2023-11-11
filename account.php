@@ -48,10 +48,17 @@ session_start();
                     if(preg_match($pattern_password, $password)){
                       if(preg_match($pattern_phone, $_POST['number'])) {
                         $user_id = random_num(20);
+                        $imageid = random_num(20);
                         $psw_length = strlen($password);
                         $hashed_pwd = password_hash($password, PASSWORD_DEFAULT);
                         $phone = $_POST['number'];
                         $gender = $_POST['gender'];
+
+                        $profileimg = $_FILES['myprofile']['name'];
+				                $extension = pathinfo( $_FILES["myprofile"]["name"], PATHINFO_EXTENSION );
+				                $newname = 'I' . $imageid . 'U' . $user_id . "." . $extension;
+				                $file_tmp_name = $_FILES['myprofile']['tmp_name'];
+				                $img_url = "tmp/tutors/".$newname;
 
                         $fromname ="ANILLOWorldwide";
                         $fromemail = 'apply@anilloworldwide.org';
@@ -61,25 +68,35 @@ session_start();
                         $headers = "From: ".$fromname." <".$fromemail.">" . $eol;
                         $headers .= "MIME-Version: 1.0" . $eol;
                         $headers .= "Content-Type: multipart/mixed; boundary=\"" . $separator . "\"" . $eol;
-                        $headers .= "Content-Transfer-Encoding: 7bit" . $eol;
-                        $headers .= "This is a MIME encoded message." . $eol;
+                        // $headers .= "Content-Transfer-Encoding: 7bit" . $eol;
+                        // $headers .= "This is a MIME encoded message." . $eol;
 
                         $mailto = $email;
                         $message = "Hello ". $user_name .", \r\n Welcome to ANILLO Worldwide. We are happy to have you here! Your student account was successfully created. \r\n \r\n TEAM ANILLO WORLDWIDE.";
                         $body2 = "--" . $separator . $eol;
-                        $body2 .= "Content-Type: text/plain; charset=\"iso-8859-1\"" . $eol;
-                        $body2 .= "Content-Transfer-Encoding: 8bit" . $eol;
+                        // $body2 .= "Content-Type: text/plain; charset=\"iso-8859-1\"" . $eol;
+                        // $body2 .= "Content-Transfer-Encoding: 8bit" . $eol;
                         $body2 .= $message . $eol;
                         $subject = "ACCOUNT CREATED - ANILLO Worldwide";
 
                         if(mail($mailto, $subject, $body2, $headers)) {
-                          // save to database
-                          $query = "insert into users (user_id,user_name,email,password,user_psw_length,phone,gender,type,availability) values('$user_id','$user_name','$email','$hashed_pwd','$psw_length', '$phone', '$gender','$type', '$availability')";
-                          mysqli_query($con, $query);
+                          if(move_uploaded_file($file_tmp_name,$img_url)) {
+                            // save to database
+                            $query = "insert into users (user_id,user_name,email,password,user_psw_length,phone,gender,type,availability) values('$user_id','$user_name','$email','$hashed_pwd','$psw_length', '$phone', '$gender','$type', '$availability')";
+                            mysqli_query($con, $query);
 
-                          $_SESSION['user_id'] = $user_id;
-                          header("Location: /");
-                          die;
+                            $query3 = "insert into images (img_id,user,url,userfor) values('$imageid','$user_id','$img_url','profile')";
+                            mysqli_query($con, $query3);
+
+                            $_SESSION['user_id'] = $user_id;
+                            header("Location: /");
+                            die;
+                          } else {
+                            $refresh = true;
+                            $acc2 = true;
+                            $create = false;
+                            $msg_error = "Could not send email, possible reasons: unexisting email, system FAIL. ACCOUNT NOT CREATED";
+                          }
                         } else {
                           $refresh = true;
                           $acc2 = true;
@@ -153,11 +170,18 @@ session_start();
                       if(preg_match($pattern_phone, $_POST['numbertwo'])) {
                         $user_id = random_num(20);
                         $tid = random_num(20);
+                        $imageid = random_num(20);
                         $psw_length = strlen($password);
                         $hashed_pwd = password_hash($password, PASSWORD_DEFAULT);
                         $phone = $_POST['numbertwo'];
                         $gender = $_POST['gendertwo'];
                         $availability = $_POST['availability'];
+
+                        $profileimg = $_FILES['myprofiletwo']['name'];
+                        $extension = pathinfo( $_FILES["myprofiletwo"]["name"], PATHINFO_EXTENSION );
+                        $newname = 'I' . $imageid . 'U' . $user_id . "." . $extension;
+                        $file_tmp_name = $_FILES['myprofiletwo']['tmp_name'];
+                        $img_url = "tmp/tutors/".$newname;
 
                         $filenameee =  $_FILES['filename']['name'];
                         $fileName = $_FILES['filename']['tmp_name'];
@@ -168,7 +192,7 @@ session_start();
                         $subject ="CV RECEIVER";
                         $fromname ="ANILLOWorldwide";
                         $fromemail = 'apply@anilloworldwide.org';
-                        $mailto = 'computer.richard0923@gmail.com';
+                        $mailto = 'contact@anilloworldwide.org';
                         $content = file_get_contents($fileName);
                         $content = chunk_split(base64_encode($content));
                         $separator = md5(time());
@@ -202,16 +226,26 @@ session_start();
                           $subject = "ACCOUNT APPROVAL - ANILLO Worldwide";
 
                           if(mail($mailto, $subject, $body2, $headers)) {
-                            // save to database
-                            $query = "insert into users (user_id,user_name,email,password,user_psw_length,phone,gender,type,availability,tid) values('$user_id','$user_name','$email','$hashed_pwd','$psw_length', '$phone', '$gender','$type', '$availability','$tid')";
-                            mysqli_query($con, $query);
+                            if(move_uploaded_file($file_tmp_name,$img_url)) {
+                              // save to database
+                              $query = "insert into users (user_id,user_name,email,password,user_psw_length,phone,gender,type,availability,tid) values('$user_id','$user_name','$email','$hashed_pwd','$psw_length', '$phone', '$gender','$type', '$availability','$tid')";
+                              mysqli_query($con, $query);
 
-                            $query2 = "insert into tutors (name,id,status) values('$user_name','$tid','inactive')";
-                            mysqli_query($con, $query2);
+                              $query2 = "insert into tutors (name,id,status) values('$user_name','$tid','inactive')";
+                              mysqli_query($con, $query2);
 
-                            $_SESSION['user_id'] = $user_id;
-                            header("Location: /");
-                            die;
+                              $query3 = "insert into images (img_id,user,url,userfor) values('$imageid','$user_id','$img_url','profile')";
+                              mysqli_query($con, $query3);
+
+                              $_SESSION['user_id'] = $user_id;
+                              header("Location: /");
+                              die;
+                            } else {
+                              $refresh = true;
+                              $acc2 = true;
+                              $create = false;
+                              $msg_error = "Could not send email, possible reasons: unexisting email, system FAIL. ACCOUNT NOT CREATED";
+                            }
                           } else {
                             $refresh = true;
                             $acc2 = true;
@@ -505,7 +539,7 @@ session_start();
         <img src="images/account.svg" alt="">
       </div>
       <div class="form">
-        <form action="#" style="overflow-y: scroll;" method="post">
+        <form action="#" style="overflow-y: scroll;" method="post" enctype="multipart/form-data">
           <div class="form-header">
             <div class="title">
               <h1>Register</h1>
@@ -574,6 +608,18 @@ session_start();
               <div class="input">
                 <input id="none" type="radio" name="gender" value="PNTS">
                 <label for="none">Prefer not to say</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="inputs">
+            <div class="title">
+              <h6>Choose your Profile Photo (JPG ONLY)</h6>
+            </div>
+
+            <div class="group">
+              <div class="input">
+                <input type="file" id="myprofile" name="pfpname" accept=".jpg" required style="color: black;">
               </div>
             </div>
           </div>
@@ -693,6 +739,17 @@ session_start();
               </div>
             </div>
           </div>
+          <div class="inputs">
+            <div class="title">
+              <h6>Choose your Profile Photo (JPG ONLY)</h6>
+            </div>
+
+            <div class="group">
+              <div class="input">
+                <input type="file" id="myprofiletwo" name="pfpname" accept=".jpg" required style="color: black;">
+              </div>
+            </div>
+          </div>
 
           <div class="continue-button">
             <button class="btnthree">REGISTER</button>
@@ -803,6 +860,18 @@ session_start();
             <div class="group">
               <div class="input">
                 <input type="file" id="myFiletwo" name="filename" accept=".jpg" required style="color: black;">
+              </div>
+            </div>
+          </div>
+
+          <div class="inputs">
+            <div class="title">
+              <h6>Choose your Profile Photo (JPG ONLY)</h6>
+            </div>
+
+            <div class="group">
+              <div class="input">
+                <input type="file" id="myprofilethree" name="pfpname" accept=".jpg" required style="color: black;">
               </div>
             </div>
           </div>

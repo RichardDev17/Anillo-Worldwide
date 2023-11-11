@@ -1,0 +1,65 @@
+/* Imports */
+@import '../main.css';
+@import '../scss/pallete/pallete';
+@import '../scss/mixins/mixins';
+@import '../scss/animation/animations';
+
+/* Menu Start */
+.menu {
+  @include menu(20vh, $blue, $orange, $black, $orange, $white, $orange);
+  display: flex;
+  justify-content: center;
+}
+
+.groups {
+  margin-top: 70px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  color: black;
+  .group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin-bottom: 20px;
+    .title {
+      margin-bottom: 40px;
+      align-self: center;
+      @include title($black);
+    }
+    ul {
+      width: 500px;
+    }
+    ul li {
+      border: 4px solid black;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      img {
+        margin-right: 20px;
+      }
+      .name {
+        font-size: 40px;
+      }
+      .remove {
+        @include btn(20px, $orange, $blue, 5px, 15px, 5px, 15px, 600, 45deg);
+      }
+      .status {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-left: 20px;
+        &.active {
+          background-color: greenyellow;
+        }
+        &.inactive {
+          background-color: red;
+        }
+      }
+    }
+  }
+}

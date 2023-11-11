@@ -1,0 +1,237 @@
+/* Imports */
+@import '../main.css';
+/* Colors */
+.fade-in {
+  opacity: 0;
+  transform: translateY(-100px);
+  transition: all 0.6s ease-out;
+}
+.fade-in.appear {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.fade-left {
+  opacity: 0;
+  transform: translateX(100px);
+  transition: all 0.6s ease-out;
+}
+.fade-left.appear {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.fade-right {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: all 0.6s ease-out;
+}
+.fade-right.appear {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+/* Menu Start */
+.menu {
+  display: block;
+  position: relative;
+  height: 20vh;
+  z-index: 9;
+  display: flex;
+  justify-content: center;
+}
+.menu .menu-flex {
+  display: flex;
+  flex-direction: row;
+}
+.menu .logo {
+  display: flex;
+  flex-direction: row;
+  margin-top: 40px;
+  width: 100%;
+}
+.menu .logo:hover {
+  cursor: pointer;
+}
+.menu .logo .text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+}
+.menu .logo .text .title-logo {
+  font-family: "Playfair Display", serif;
+  font-weight: bold;
+  font-size: 36px;
+  color: #264B92;
+}
+.menu .logo .text .subtitle-logo {
+  font-family: "Playfair Display", serif;
+  margin-top: 10px;
+  font-weight: medium;
+  font-size: 16px;
+  color: #ED7C36;
+}
+.menu .list {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+  align-items: center;
+}
+.menu .list .list-items {
+  display: flex;
+  flex-direction: row;
+}
+.menu .list .list-items .item {
+  margin-left: 10px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: medium;
+  font-size: 24px;
+}
+.menu .list .list-items .item::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  margin: 0px 12.5px 0px 12.5px;
+  position: absolute;
+  z-index: 11;
+  transform: translateY(5px);
+  border-radius: 50%;
+  background-color: #ED7C36;
+}
+.menu .list .list-items .item:last-of-type:after {
+  display: none;
+}
+.menu .list .list-items .item a {
+  margin-left: 25px;
+  color: white;
+  transition: all 250ms ease-in;
+}
+.menu .list .list-items .item a:hover {
+  color: #ED7C36;
+}
+.menu .list .list-items .item.register {
+  transform: translateY(-10px);
+}
+.menu .list .list-items .item .btn {
+  position: relative;
+  overflow: hidden;
+  transition: 0.6s all ease;
+  z-index: 1;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 24px;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  padding: 5px 20px 5px 20px;
+  background-color: #ED7C36;
+  border: none;
+}
+.menu .list .list-items .item .btn::before {
+  content: "";
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  transition: 0.6s all ease;
+  width: 100%;
+  height: 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.menu .list .list-items .item .btn:hover {
+  cursor: pointer;
+  color: #ED7C36;
+}
+.menu .list .list-items .item .btn:hover::before {
+  height: 440%;
+}
+
+.groups {
+  margin-top: 70px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  color: black;
+}
+.groups .group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  margin-bottom: 20px;
+}
+.groups .group .title {
+  margin-bottom: 40px;
+  align-self: center;
+  font-family: "Playfair Display", serif;
+  font-size: 56px;
+  font-weight: bold;
+  color: black;
+}
+.groups .group ul {
+  width: 500px;
+}
+.groups .group ul li {
+  border: 4px solid black;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.groups .group ul li img {
+  margin-right: 20px;
+}
+.groups .group ul li .name {
+  font-size: 40px;
+}
+.groups .group ul li .remove {
+  position: relative;
+  overflow: hidden;
+  transition: 0.6s all ease;
+  z-index: 1;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 20px;
+  color: #ED7C36;
+  font-weight: 600;
+  text-align: center;
+  padding: 5px 15px 5px 15px;
+  background-color: #264B92;
+  border: none;
+}
+.groups .group ul li .remove::before {
+  content: "";
+  background: #ED7C36;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  transition: 0.6s all ease;
+  width: 100%;
+  height: 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.groups .group ul li .remove:hover {
+  cursor: pointer;
+  color: #264B92;
+}
+.groups .group ul li .remove:hover::before {
+  height: 440%;
+}
+.groups .group ul li .status {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-left: 20px;
+}
+.groups .group ul li .status.active {
+  background-color: greenyellow;
+}
+.groups .group ul li .status.inactive {
+  background-color: red;
+}/*# sourceMappingURL=manager.css.map */
